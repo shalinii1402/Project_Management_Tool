@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ProjectFlow - Manage Projects Efficiently</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="container nav-container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-layer-group"></i> ProjectFlow
+            </a>
+
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="index.html" class="nav-link active">Home 1</a></li>
+                    <li><a href="home-2.html" class="nav-link">Home 2</a></li>
+                    <li><a href="about.html" class="nav-link">About Us</a></li>
+                    <li><a href="features.html" class="nav-link">Features</a></li>
+                    <li><a href="pricing.html" class="nav-link">Pricing</a></li>
+                    <li><a href="contact.html" class="nav-link">Contact</a></li>
+                    <li class="mobile-only"><a href="user-dashboard.html" class="nav-link">Dashboard</a></li>
+                    <li class="mobile-only"><a href="login.html" class="nav-link">Login</a></li>
+                    <li class="mobile-only"><a href="signup.html" class="nav-link">Sign Up</a></li>
+                </ul>
+            </nav>
+
+            <div class="nav-right">
+                <!-- Dashboard Dropdown -->
+                <div class="dropdown">
+                    <button class="btn btn-primary dashboard-btn">
+                        <i class="fas fa-columns"></i> Dashboard
+                    </button>
+                    <div class="dropdown-menu">
+                        <a href="user-dashboard.html" class="dropdown-item">User Dashboard</a>
+                        <a href="admin-dashboard.html" class="dropdown-item">Admin Dashboard</a>
+                    </div>
+                </div>
+
+                <!-- Theme Toggle -->
+                <button class="theme-toggle" title="Toggle Theme">
+                    <i class="fas fa-moon"></i>
+                </button>
+
+                <!-- Auth Buttons -->
+                <a href="login.html" class="btn btn-secondary">Login</a>
+                <a href="signup.html" class="btn btn-primary">Sign Up</a>
+
+                <!-- Mobile Menu Button -->
+                <button class="mobile-menu-btn" style="display: none;">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero container">
+        <div class="hero-content fade-in">
+            <h1>Manage Projects <span>Efficiently & Effortlessly</span></h1>
+            <p>Streamline your workflow, collaborate with your team in real-time, and hit your deadlines with our
+                intuitive project management tool.</p>
+            <div style="display: flex; gap: 15px;">
+                <a href="signup.html" class="btn btn-primary">Get Started</a>
+                <a href="#demo" class="btn btn-secondary">View Demo</a>
+            </div>
+        </div>
+        <div class="hero-image fade-in">
+            <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=1000"
+                alt="Project Dashboard Illustration" style="border-radius: 20px; box-shadow: var(--shadow-lg);">
+        </div>
+    </section>
+
+    <!-- Task Board Preview (Demo) -->
+    <section id="demo" class="kanban-preview">
+        <div class="container">
+            <div class="text-center">
+                <h2>Interactive Task Board</h2>
+                <p>Experience our Kanban board. Drag and drop cards to update status.</p>
+            </div>
+
+            <div class="kanban-board">
+                <!-- To Do -->
+                <div class="kanban-col">
+                    <div class="kanban-header">
+                        <span class="col-title" style="color: var(--primary-color);">To Do</span>
+                        <i class="fas fa-ellipsis-h"></i>
+                    </div>
+                    <div class="kanban-card" draggable="true">
+                        <span class="card-tag">Design</span>
+                        <h4>Create High-Fidelity Mockups</h4>
+                        <div style="margin-top: 10px; font-size: 0.8rem; color: var(--text-light);">
+                            <i class="far fa-user"></i> Alex
+                        </div>
+                    </div>
+                    <div class="kanban-card" draggable="true">
+                        <span class="card-tag">Research</span>
+                        <h4>Competitor Analysis</h4>
+                    </div>
+                </div>
+
+                <!-- In Progress -->
+                <div class="kanban-col">
+                    <div class="kanban-header">
+                        <span class="col-title" style="color: #d97706;">In Progress</span>
+                        <i class="fas fa-ellipsis-h"></i>
+                    </div>
+                    <div class="kanban-card" draggable="true">
+                        <span class="card-tag">Dev</span>
+                        <h4>Implement Authentication</h4>
+                        <div style="margin-top: 10px; font-size: 0.8rem; color: var(--text-light);">
+                            <i class="far fa-user"></i> Sarah
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Done -->
+                <div class="kanban-col">
+                    <div class="kanban-header">
+                        <span class="col-title" style="color: #059669;">Done</span>
+                        <i class="fas fa-ellipsis-h"></i>
+                    </div>
+                    <div class="kanban-card" draggable="true">
+                        <span class="card-tag">Planning</span>
+                        <h4>Project Kickoff Meeting</h4>
+                    </div>
+                    <div class="kanban-card" draggable="true">
+                        <span class="card-tag">Design</span>
+                        <h4>Logo Sketches</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Benefits -->
+    <section class="section-padding container">
+        <div class="text-center" style="margin-bottom: 50px;">
+            <h2>Why Choose ProjectFlow?</h2>
+            <p>Everything you need to manage your projects in one place.</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card">
+                <i class="fas fa-rocket feature-icon"></i>
+                <h3>Boost Productivity</h3>
+                <p>Automate routine tasks and focus on what matters most. Our tools help you get more done in less time.
+                </p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-users feature-icon"></i>
+                <h3>Real-time Collaboration</h3>
+                <p>Work together seamlessly with your team. Share updates, comments, and files instantly.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-chart-line feature-icon"></i>
+                <h3>Smart Analytics</h3>
+                <p>Gain insights into your project's progress with detailed reports and visual dashboards.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="section-padding" style="background-color: var(--bg-surface);">
+        <div class="container">
+            <div class="text-center" style="margin-bottom: 50px;">
+                <h2>How It Works</h2>
+            </div>
+            <div class="grid gap-2"
+                style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); text-align: center;">
+                <div>
+                    <div
+                        style="width: 60px; height: 60px; background: var(--primary-color); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; font-size: 1.5rem; font-weight: bold;">
+                        1</div>
+                    <h3>Create Task</h3>
+                    <p>Start by adding your tasks to the board.</p>
+                </div>
+                <div>
+                    <div
+                        style="width: 60px; height: 60px; background: var(--primary-color); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; font-size: 1.5rem; font-weight: bold;">
+                        2</div>
+                    <h3>Assign Team</h3>
+                    <p>Delegate responsibilities to team members.</p>
+                </div>
+                <div>
+                    <div
+                        style="width: 60px; height: 60px; background: var(--primary-color); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; font-size: 1.5rem; font-weight: bold;">
+                        3</div>
+                    <h3>Track Progress</h3>
+                    <p>Monitor status and move cards across the board.</p>
+                </div>
+                <div>
+                    <div
+                        style="width: 60px; height: 60px; background: var(--primary-color); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; font-size: 1.5rem; font-weight: bold;">
+                        4</div>
+                    <h3>Complete</h3>
+                    <p>Celebrate your wins and analyze performance.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="section-padding container text-center">
+        <h2>Ready to Streamline Your Workflow?</h2>
+        <p>Join thousands of teams using ProjectFlow today.</p>
+        <a href="signup.html" class="btn btn-primary btn-lg" style="margin-top: 20px;">Start Free Trial</a>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container footer-content">
+            <!-- 1. Brand Section -->
+            <div class="footer-brand">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-layer-group"></i> ProjectFlow
+                </a>
+                <p>Making project management simple, intuitive, and effective for teams of all sizes.</p>
+            </div>
+            <!-- 2. Quick Links -->
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="features.html">Features</a></li>
+                    <li><a href="pricing.html">Pricing</a></li>
+                </ul>
+            </div>
+            <!-- 3. Resources -->
+            <div class="footer-links">
+                <h4>Resources</h4>
+                <ul>
+                    <li><a href="#">Help Center</a></li>
+                    <li><a href="#">Documentation</a></li>
+                    <li><a href="#">API</a></li>
+                    <li><a href="#">Blog</a></li>
+                </ul>
+            </div>
+            <!-- 4. Contact Info -->
+            <div class="footer-links">
+                <h4>Contact Info</h4>
+                <ul style="list-style: none; padding: 0;">
+                    <li
+                        style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 12px; display: flex; align-items: center; gap: 10px;">
+                        <i class="fas fa-envelope" style="color: var(--primary-color);"></i> hello@projectflow.com
+                    </li>
+                    <li
+                        style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 12px; display: flex; align-items: center; gap: 10px;">
+                        <i class="fas fa-phone" style="color: var(--primary-color);"></i> +1 (555) 123-4567
+                    </li>
+                    <li
+                        style="color: var(--text-muted); font-size: 0.95rem; display: flex; align-items: flex-start; gap: 10px;">
+                        <i class="fas fa-map-marker-alt" style="color: var(--primary-color); margin-top: 4px;"></i> 123
+                        Innovation Dr, Tech City
+                    </li>
+                </ul>
+            </div>
+            <!-- 5. Social Icons -->
+            <div class="footer-links">
+                <h4>Connect</h4>
+                <div class="social-icons">
+                    <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="container copyright">
+            &copy; 2026 ProjectFlow. All rights reserved.
+        </div>
+    </footer>
+
+    <script src="assets/js/script.js"></script>
+</body>
+
+</html>

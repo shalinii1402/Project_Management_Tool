@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ProjectFlow - Modern Collaboration</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="container nav-container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-layer-group"></i> ProjectFlow
+            </a>
+
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="index.html" class="nav-link">Home 1</a></li>
+                    <li><a href="home-2.html" class="nav-link active">Home 2</a></li>
+                    <li><a href="about.html" class="nav-link">About Us</a></li>
+                    <li><a href="features.html" class="nav-link">Features</a></li>
+                    <li><a href="pricing.html" class="nav-link">Pricing</a></li>
+                    <li><a href="contact.html" class="nav-link">Contact</a></li>
+                    <li class="mobile-only"><a href="user-dashboard.html" class="nav-link">Dashboard</a></li>
+                    <li class="mobile-only"><a href="login.html" class="nav-link">Login</a></li>
+                    <li class="mobile-only"><a href="signup.html" class="nav-link">Sign Up</a></li>
+                </ul>
+            </nav>
+
+            <div class="nav-right">
+                <div class="dropdown">
+                    <button class="btn btn-primary dashboard-btn">
+                        <i class="fas fa-columns"></i> Dashboard
+                    </button>
+                    <div class="dropdown-menu">
+                        <a href="user-dashboard.html" class="dropdown-item">User Dashboard</a>
+                        <a href="admin-dashboard.html" class="dropdown-item">Admin Dashboard</a>
+                    </div>
+                </div>
+                <button class="theme-toggle" title="Toggle Theme"><i class="fas fa-moon"></i></button>
+                <a href="login.html" class="btn btn-secondary">Login</a>
+                <a href="signup.html" class="btn btn-primary">Sign Up</a>
+                <button class="mobile-menu-btn" style="display: none;"><i class="fas fa-bars"></i></button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Product Overview Banner -->
+    <section class="hero container gap-3">
+        <div class="hero-content text-center fade-in">
+            <h1>Collaborate Without <span>Chaos</span></h1>
+            <p>Unify your team’s communication, tasks, and files in one powerful platform. The modern way to build
+                products.</p>
+            <div class="hero-cta">
+                <a href="signup.html" class="btn btn-primary">Try for Free</a>
+            </div>
+        </div>
+        <div class="hero-image fade-in" style="padding: 20px;">
+            <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=1000"
+                alt="Collaboration Illustration"
+                style="border-radius: 20px; box-shadow: var(--shadow-lg); width: 100%;">
+        </div>
+    </section>
+
+    <!-- Team Collaboration Features -->
+    <section class="section-padding container">
+        <div class="text-center" style="margin-bottom: 50px;">
+            <h2>Built for Modern Teams</h2>
+            <p>Tools designed to help your team perform at their best.</p>
+        </div>
+        <div class="grid gap-3 items-center" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
+            <div style="padding: 20px;">
+                <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&q=80&w=1000"
+                    alt="Team Chat" style="width: 100%; border-radius: 20px; box-shadow: var(--shadow-lg);">
+            </div>
+            <div>
+                <h3>Seamless Communication</h3>
+                <p>Chat with your team directly within tasks. No more switching between apps to get updates or
+                    clarification.</p>
+                <ul class="plan-features">
+                    <li><span class="check-icon"><i class="fas fa-check"></i></span> Threaded comments</li>
+                    <li><span class="check-icon"><i class="fas fa-check"></i></span> @Mentions</li>
+                    <li><span class="check-icon"><i class="fas fa-check"></i></span> File sharing</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Workflow Automation -->
+    <section class="section-padding" style="background-color: var(--bg-surface);">
+        <div class="container">
+            <div class="grid gap-3 items-center" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
+                <div style="order: 2; padding: 20px;">
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=1000"
+                        alt="Automation" style="width: 100%; border-radius: 20px; box-shadow: var(--shadow-lg);">
+                </div>
+                <div style="order: 1;">
+                    <h3>Automate Your Workflow</h3>
+                    <p>Stop wasting time on manual data entry. Set up rules to automatically move tasks, assign owners,
+                        and send notifications.</p>
+                    <a href="#" class="btn btn-outline" style="margin-top: 20px;">Explore Automation</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Analytics -->
+    <section class="section-padding container">
+        <div class="grid gap-3 items-center" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
+            <div style="padding: 20px;">
+                <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=1000"
+                    alt="Analytics Illustration"
+                    style="width: 100%; border-radius: 20px; box-shadow: var(--shadow-lg);">
+            </div>
+            <div>
+                <h2>Data-Driven Insights</h2>
+                <h3>Track Every Metric</h3>
+                <p>Visualize team velocity, burn-down charts, and time tracking reports to optimize your sprint
+                    planning.</p>
+                <a href="#" class="btn btn-outline" style="margin-top: 20px;">View Reports</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="section-padding" style="background-color: var(--bg-surface);">
+        <div class="container">
+            <div class="text-center" style="margin-bottom: 50px;">
+                <h2>Loved by Teams Worldwide</h2>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card" style="text-align: left;">
+                    <div style="color: #fbbf24; margin-bottom: 10px;">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                            class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p style="font-style: italic;">"ProjectFlow has completely transformed how we deliver software. The
+                        collaboration features are second to none."</p>
+                    <div style="margin-top: 20px; font-weight: bold;">
+                        - Jane Doe, CTO at TechCorp
+                    </div>
+                </div>
+                <div class="feature-card" style="text-align: left;">
+                    <div style="color: #fbbf24; margin-bottom: 10px;">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                            class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p style="font-style: italic;">"Simple, intuitive, and powerful. It just works exactly the way you
+                        expect it to."</p>
+                    <div style="margin-top: 20px; font-weight: bold;">
+                        - John Smith, PM at DesignStudio
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container footer-content">
+            <!-- 1. Brand Section -->
+            <div class="footer-brand">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-layer-group"></i> ProjectFlow
+                </a>
+                <p>Making project management simple, intuitive, and effective for teams of all sizes.</p>
+            </div>
+            <!-- 2. Quick Links -->
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="features.html">Features</a></li>
+                    <li><a href="pricing.html">Pricing</a></li>
+                </ul>
+            </div>
+            <!-- 3. Resources -->
+            <div class="footer-links">
+                <h4>Resources</h4>
+                <ul>
+                    <li><a href="#">Help Center</a></li>
+                    <li><a href="#">Documentation</a></li>
+                    <li><a href="#">API</a></li>
+                    <li><a href="#">Blog</a></li>
+                </ul>
+            </div>
+            <!-- 4. Contact Info -->
+            <div class="footer-links">
+                <h4>Contact Info</h4>
+                <ul style="list-style: none; padding: 0;">
+                    <li
+                        style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 12px; display: flex; align-items: center; gap: 10px;">
+                        <i class="fas fa-envelope" style="color: var(--primary-color);"></i> hello@projectflow.com
+                    </li>
+                    <li
+                        style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 12px; display: flex; align-items: center; gap: 10px;">
+                        <i class="fas fa-phone" style="color: var(--primary-color);"></i> +1 (555) 123-4567
+                    </li>
+                    <li
+                        style="color: var(--text-muted); font-size: 0.95rem; display: flex; align-items: flex-start; gap: 10px;">
+                        <i class="fas fa-map-marker-alt" style="color: var(--primary-color); margin-top: 4px;"></i> 123
+                        Innovation Dr, Tech City
+                    </li>
+                </ul>
+            </div>
+            <!-- 5. Social Icons -->
+            <div class="footer-links">
+                <h4>Connect</h4>
+                <div class="social-icons">
+                    <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="container copyright">
+            &copy; 2026 ProjectFlow. All rights reserved.
+        </div>
+    </footer>
+
+    <script src="assets/js/script.js"></script>
+</body>
+
+</html>
