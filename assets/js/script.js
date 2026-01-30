@@ -201,4 +201,28 @@ document.addEventListener('DOMContentLoaded', () => {
             signupBtn.disabled = !this.checked;
         });
     }
+
+    // --- Entrance Animations on Scroll ---
+    const revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-up');
+
+    const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('active');
+                // Once it's revealed, we can stop observing it
+                revealObserver.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.1, // Trigger when 10% of the element is visible
+        rootMargin: "0px 0px -50px 0px" // Trigger slightly before it comes into full view
+    });
+
+    revealElements.forEach(el => {
+        revealObserver.observe(el);
+    });
+
+    // Handle elements that might already be in view on load
+    // (IntersectionObserver handles this by default, but we can double check)
 });
+
