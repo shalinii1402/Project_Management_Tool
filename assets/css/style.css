@@ -182,12 +182,16 @@ p {
 
 /* Buttons */
 .btn {
-    display: inline-block;
-    padding: 12px 24px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 24px;
+    height: 44px;
     border-radius: 8px;
     font-weight: 600;
     transition: all var(--transition-speed);
     font-size: 1rem;
+    white-space: nowrap;
 }
 
 .btn-primary {
@@ -322,7 +326,11 @@ header {
 /* Theme Toggle */
 .theme-toggle {
     font-size: 1.25rem;
-    padding: 8px;
+    width: 44px;
+    height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     border-radius: 50%;
     color: var(--text-main);
     transition: background-color 0.2s;
@@ -345,12 +353,14 @@ header {
     flex: 1;
 }
 
+/* Hero CTA Buttons */
 .hero-cta {
     margin-top: 30px;
+    display: flex;
+    gap: 15px;
 }
 
 .hero-content.text-center .hero-cta {
-    display: flex;
     justify-content: center;
 }
 
@@ -408,6 +418,9 @@ header {
     padding: 20px;
     border-radius: 12px;
     box-shadow: var(--shadow-md);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 .kanban-header {
@@ -435,6 +448,14 @@ header {
     cursor: grab;
     transition: all 0.2s;
     border: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 140px;
+}
+
+.kanban-card:last-child {
+    margin-bottom: 0;
 }
 
 .kanban-card:hover {
@@ -455,7 +476,7 @@ header {
 /* Features Section */
 .features-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 30px;
     margin-top: 50px;
 }
@@ -466,6 +487,7 @@ header {
     border-radius: 16px;
     border: 1px solid var(--border-color);
     transition: all var(--transition-speed);
+    text-align: center;
 }
 
 .feature-card:hover {
@@ -540,6 +562,12 @@ header {
     align-items: center;
     gap: 10px;
     color: var(--text-muted);
+}
+
+/* Support for centered lists */
+.text-center .plan-features {
+    display: inline-block;
+    text-align: left;
 }
 
 .check-icon {
@@ -617,11 +645,13 @@ footer {
     text-decoration: none;
 }
 
-.social-icon:hover {
+/* Increased specificity to override .footer-links a:hover */
+.social-icons .social-icon:hover {
     background-color: var(--primary-color);
     color: white;
     transform: scale(1.1);
     border-color: var(--primary-color);
+    box-shadow: 0 0 15px rgba(99, 102, 241, 0.4);
 }
 
 .copyright {
@@ -796,17 +826,23 @@ footer {
 
     .nav-link {
         font-size: 1.1rem;
-        padding: 8px 0;
-        display: block;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         width: 100%;
+        height: 44px;
     }
 
     .mobile-menu-btn {
         display: flex !important;
+        align-items: center;
+        justify-content: center;
         font-size: 1.5rem;
         color: var(--text-main);
         order: 3;
-        padding: 5px;
+        width: 44px;
+        height: 44px;
         z-index: 1001;
     }
 
@@ -862,6 +898,22 @@ footer {
 
     .main-content {
         margin-left: 0;
+    }
+
+    /* Home 2 Feature Section Centering */
+    .section-padding .grid>div {
+        text-align: center;
+    }
+
+    .plan-features {
+        display: inline-block;
+        text-align: left;
+        margin: 20px auto;
+    }
+
+    /* Ensure ordered items (images) have spacing */
+    .section-padding .grid>div img {
+        margin-bottom: 20px;
     }
 }
 
@@ -1152,6 +1204,14 @@ button:disabled {
         height: auto;
         min-height: 100vh;
         padding: 40px 0;
+    }
+
+    .features-grid {
+        gap: 20px;
+    }
+
+    .feature-card {
+        padding: 25px;
     }
 
     .checkbox-group span {

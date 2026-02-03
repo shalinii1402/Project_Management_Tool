@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navigation Button Height Test</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .test-container {
+            padding: 40px;
+            background: var(--bg-surface);
+            min-height: 100vh;
+        }
+
+        .test-section {
+            background: var(--bg-card);
+            padding: 30px;
+            margin-bottom: 30px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+
+        .test-section h2 {
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+
+        .button-row {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+        }
+
+        .height-indicator {
+            position: relative;
+            display: inline-block;
+        }
+
+        .height-indicator::after {
+            content: '44px';
+            position: absolute;
+            right: -50px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 12px;
+            color: var(--text-muted);
+            background: var(--bg-surface);
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        .grid-bg {
+            background-image:
+                linear-gradient(to right, var(--border-color) 1px, transparent 1px),
+                linear-gradient(to bottom, var(--border-color) 1px, transparent 1px);
+            background-size: 20px 20px;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .device-label {
+            display: inline-block;
+            background: var(--primary-color);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="test-container">
+        <div class="container">
+            <h1 style="text-align: center; margin-bottom: 40px;">Navigation Button Height Consistency Test</h1>
+
+            <!-- Desktop View Test -->
+            <div class="test-section">
+                <span class="device-label">Desktop View (>968px)</span>
+                <h2>All Buttons Should Have 44px Height</h2>
+                <div class="grid-bg">
+                    <div class="button-row">
+                        <div class="height-indicator">
+                            <button class="btn btn-primary dashboard-btn">
+                                <i class="fas fa-columns"></i> Dashboard
+                            </button>
+                        </div>
+                        <div class="height-indicator">
+                            <a href="#" class="btn btn-secondary">Login</a>
+                        </div>
+                        <div class="height-indicator">
+                            <a href="#" class="btn btn-primary">Sign Up</a>
+                        </div>
+                        <div class="height-indicator">
+                            <button class="theme-toggle" title="Toggle Theme">
+                                <i class="fas fa-moon"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mobile View Test -->
+            <div class="test-section">
+                <span class="device-label">Mobile View (≤968px)</span>
+                <h2>Mobile Menu Items - All 44px Height</h2>
+                <div class="grid-bg">
+                    <div style="max-width: 375px; margin: 0 auto;">
+                        <div class="button-row" style="flex-direction: column; gap: 10px;">
+                            <div class="height-indicator" style="width: 100%;">
+                                <button class="mobile-menu-btn">
+                                    <i class="fas fa-bars"></i>
+                                </button>
+                            </div>
+                            <div class="height-indicator" style="width: 100%;">
+                                <button class="theme-toggle">
+                                    <i class="fas fa-moon"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <h3 style="margin: 20px 0 10px;">Mobile Menu Links (when menu is open):</h3>
+                        <div style="background: var(--bg-card); padding: 20px; border-radius: 8px;">
+                            <div class="height-indicator" style="width: 100%; margin-bottom: 10px;">
+                                <a href="#" class="nav-link"
+                                    style="display: flex; align-items: center; justify-content: center; height: 44px; width: 100%;">Home
+                                    1</a>
+                            </div>
+                            <div class="height-indicator" style="width: 100%; margin-bottom: 10px;">
+                                <a href="#" class="nav-link"
+                                    style="display: flex; align-items: center; justify-content: center; height: 44px; width: 100%;">Home
+                                    2</a>
+                            </div>
+                            <div class="height-indicator" style="width: 100%; margin-bottom: 10px;">
+                                <a href="#" class="nav-link"
+                                    style="display: flex; align-items: center; justify-content: center; height: 44px; width: 100%;">About
+                                    Us</a>
+                            </div>
+                            <div class="height-indicator" style="width: 100%; margin-bottom: 10px;">
+                                <a href="#" class="nav-link"
+                                    style="display: flex; align-items: center; justify-content: center; height: 44px; width: 100%;">Login</a>
+                            </div>
+                            <div class="height-indicator" style="width: 100%;">
+                                <a href="#" class="nav-link"
+                                    style="display: flex; align-items: center; justify-content: center; height: 44px; width: 100%;">Sign
+                                    Up</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Comparison Test -->
+            <div class="test-section">
+                <h2>Visual Alignment Test</h2>
+                <p style="color: var(--text-muted); margin-bottom: 20px;">All buttons below should align perfectly at
+                    the top and bottom edges:</p>
+                <div class="grid-bg">
+                    <div class="button-row">
+                        <a href="#" class="btn btn-primary">Short</a>
+                        <a href="#" class="btn btn-primary">Medium Text</a>
+                        <a href="#" class="btn btn-primary">Very Long Button Text</a>
+                        <a href="#" class="btn btn-secondary">Another Button</a>
+                        <button class="theme-toggle"><i class="fas fa-moon"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Instructions -->
+            <div class="test-section">
+                <h2>Testing Instructions</h2>
+                <ol style="color: var(--text-muted); line-height: 1.8;">
+                    <li>Visually inspect that all buttons have the same height (44px indicators shown)</li>
+                    <li>Use browser DevTools to inspect and verify computed height is exactly 44px</li>
+                    <li>Resize browser window to test responsive behavior:
+                        <ul style="margin-top: 10px;">
+                            <li>Desktop: > 968px width</li>
+                            <li>Tablet: 768px width</li>
+                            <li>Mobile: 375px width</li>
+                        </ul>
+                    </li>
+                    <li>Open the actual website and verify the navigation bar buttons match this test</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <script src="assets/js/script.js"></script>
+</body>
+
+</html>
