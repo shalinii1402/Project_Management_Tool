@@ -46,3 +46,17 @@
 **Fixes:**
 - **Mobile/Tablet Centering:** Added CSS rules in `@media (max-width: 768px)` to center `.section-padding .grid > div` content and center `.plan-features` lists.
 - **Testimonial Centering:** Removed inline `style="text-align: left;"` from the testimonial feature cards in `home-2.html`, allowing them to inherit the global `text-align: center` rule.
+
+## 8. About Us Overflow Fix
+**Objective:** Prevent content overflow on mobile/tablet views for About Us page.
+**Fixes:**
+- Updated grid column definition to `minmax(250px, 1fr)`.
+- Added `width: 100%` to `.about-hero-img` to ensure responsiveness.
+- Reduced `.gap-3` on mobile screens.
+
+## 9. Pricing Plan Updates
+**Objective:** Add new features to Free and Enterprise plans.
+**Updates:**
+- **Free Plan:** Added "Support access" feature.
+- **Enterprise Plan:** Added "Custom SLA" feature.
+- **Verification:** Both updates match existing list style and spacing perfectly.
