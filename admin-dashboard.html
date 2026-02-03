@@ -63,8 +63,12 @@
         <!-- Main Content -->
         <main class="main-content">
             <!-- Top Header -->
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
-                <h2 id="section-title">Admin Overview</h2>
+            <div class="dashboard-header-container"
+                style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+                <div style="display: flex; align-items: center; gap: 15px;">
+                    <button class="dashboard-sidebar-btn mobile-only"><i class="fas fa-bars"></i></button>
+                    <h2 id="section-title" style="margin-bottom: 0;">Admin Overview</h2>
+                </div>
                 <div style="display: flex; align-items: center; gap: 20px;">
                     <div class="dropdown">
                         <button class="btn btn-secondary dashboard-btn">
@@ -82,7 +86,7 @@
             <!-- Overview Section -->
             <div id="overview-section" class="dashboard-section active">
                 <!-- Stats -->
-                <div class="grid gap-2" style="grid-template-columns: repeat(4, 1fr); margin-bottom: 40px;">
+                <div class="grid gap-2 dashboard-stats-admin" style="margin-bottom: 40px;">
                     <div class="kanban-col reveal-up reveal-delay-1">
                         <p style="margin-bottom: 5px; font-size: 0.9rem;">Total Users</p>
                         <h2>1,240</h2>
@@ -118,43 +122,48 @@
                         <button class="btn btn-primary" style="padding: 8px 16px; font-size: 0.9rem;">Add User</button>
                     </div>
 
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Role</th>
-                                <th>Status</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Alex Johnson</td>
-                                <td>alex@demo.com</td>
-                                <td>Admin</td>
-                                <td><span style="color: #059669;">Active</span></td>
-                                <td><button style="color: var(--text-muted);"><i class="fas fa-ellipsis-v"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Sarah Lee</td>
-                                <td>sarah@demo.com</td>
-                                <td>Manager</td>
-                                <td><span style="color: #059669;">Active</span></td>
-                                <td><button style="color: var(--text-muted);"><i class="fas fa-ellipsis-v"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>John Doe</td>
-                                <td>john@demo.com</td>
-                                <td>Developer</td>
-                                <td><span style="color: #d97706;">Pending</span></td>
-                                <td><button style="color: var(--text-muted);"><i class="fas fa-ellipsis-v"></i></button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div class="table-responsive">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Role</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Alex Johnson</td>
+                                    <td>alex@demo.com</td>
+                                    <td>Admin</td>
+                                    <td><span style="color: #059669;">Active</span></td>
+                                    <td><button style="color: var(--text-muted);"><i
+                                                class="fas fa-ellipsis-v"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Sarah Lee</td>
+                                    <td>sarah@demo.com</td>
+                                    <td>Manager</td>
+                                    <td><span style="color: #059669;">Active</span></td>
+                                    <td><button style="color: var(--text-muted);"><i
+                                                class="fas fa-ellipsis-v"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>John Doe</td>
+                                    <td>john@demo.com</td>
+                                    <td>Developer</td>
+                                    <td><span style="color: #d97706;">Pending</span></td>
+                                    <td><button style="color: var(--text-muted);"><i
+                                                class="fas fa-ellipsis-v"></i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
 

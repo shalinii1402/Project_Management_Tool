@@ -37,9 +37,12 @@
 
         <!-- Main Content -->
         <main class="main-content">
-            <!-- Top Header -->
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
-                <h2 id="section-title">My Dashboard</h2>
+            <div class="dashboard-header-container"
+                style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+                <div style="display: flex; align-items: center; gap: 15px;">
+                    <button class="dashboard-sidebar-btn mobile-only"><i class="fas fa-bars"></i></button>
+                    <h2 id="section-title" style="margin-bottom: 0;">My Dashboard</h2>
+                </div>
                 <div style="display: flex; align-items: center; gap: 20px;">
                     <div class="dropdown">
                         <button class="btn btn-secondary dashboard-btn">
@@ -57,7 +60,7 @@
             <!-- Dashboard Section -->
             <div id="dashboard-section" class="dashboard-section active">
                 <!-- Stats -->
-                <div class="grid gap-2" style="grid-template-columns: repeat(3, 1fr); margin-bottom: 30px;">
+                <div class="grid gap-2 dashboard-stats" style="margin-bottom: 30px;">
                     <div class="kanban-col reveal-up reveal-delay-1" style="text-align: center;">
                         <h1>12</h1>
                         <p>Pending Tasks</p>

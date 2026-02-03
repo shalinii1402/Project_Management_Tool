@@ -178,6 +178,26 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // --- Dashboard Sidebar Mobile Toggle ---
+    const dashboardSidebarBtn = document.querySelector('.dashboard-sidebar-btn');
+    const dashboardSidebar = document.querySelector('.sidebar');
+
+    if (dashboardSidebarBtn && dashboardSidebar) {
+        dashboardSidebarBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            dashboardSidebar.classList.toggle('active');
+        });
+
+        // Close sidebar when clicking outside
+        document.addEventListener('click', (e) => {
+            if (dashboardSidebar.classList.contains('active') &&
+                !dashboardSidebar.contains(e.target) &&
+                !dashboardSidebarBtn.contains(e.target)) {
+                dashboardSidebar.classList.remove('active');
+            }
+        });
+    }
+
     // --- Auth Pages Logic ---
     // Password Visibility Toggle
     const togglePasswordIcons = document.querySelectorAll('.toggle-password');
