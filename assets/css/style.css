@@ -807,7 +807,7 @@ footer {
 }
 
 /* Responsive Header & Navigation */
-@media (max-width: 968px) {
+@media (max-width: 1024px) {
     .nav-menu {
         position: fixed;
         top: 80px;
@@ -875,8 +875,45 @@ footer {
         overflow: hidden;
     }
 
+    .dashboard-stats,
     .dashboard-stats-admin {
         grid-template-columns: repeat(2, 1fr);
+    }
+
+    /* Dashboard Layout for Tablet/Mobile */
+    .dashboard-layout {
+        display: block;
+    }
+
+    .sidebar {
+        width: 260px;
+        height: 100vh;
+        position: fixed;
+        left: -260px;
+        top: 0;
+        z-index: 1100;
+        transition: left 0.3s ease;
+        box-shadow: 5px 0 15px rgba(0, 0, 0, 0.1);
+        overflow-y: auto;
+        background-color: var(--bg-card);
+    }
+
+    .sidebar.active {
+        left: 0;
+    }
+
+    .main-content {
+        margin-left: 0 !important;
+        width: 100%;
+        padding: 20px;
+    }
+
+    #section-title {
+        font-size: 1.8rem;
+    }
+
+    .mobile-only {
+        display: block !important;
     }
 }
 
@@ -949,32 +986,6 @@ footer {
 
     .footer-content {
         grid-template-columns: 1fr;
-    }
-
-    .dashboard-layout {
-        display: block;
-        /* Remove flex as sidebar is fixed */
-    }
-
-    .sidebar {
-        width: 260px;
-        height: 100vh;
-        position: fixed;
-        left: -260px;
-        top: 0;
-        z-index: 1100;
-        transition: left 0.3s ease;
-        box-shadow: 5px 0 15px rgba(0, 0, 0, 0.1);
-        overflow-y: auto;
-    }
-
-    .sidebar.active {
-        left: 0;
-    }
-
-    .main-content {
-        margin-left: 0;
-        width: 100%;
     }
 
     .dashboard-stats,
@@ -1469,4 +1480,13 @@ button:disabled {
 .table-responsive {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
+}
+
+/* Fix Follow Us Social Icons Alignment on Mobile */
+@media (max-width: 768px) {
+    .contact-layout .reveal-left>div>.contact-socials {
+        flex-direction: row !important;
+        justify-content: center;
+        gap: 15px;
+    }
 }
