@@ -1784,3 +1784,119 @@ button:disabled {
         gap: 15px;
     }
 }
+
+/* --- FIXES FOR USER REQUESTS --- */
+
+/* 1 & 2: Home & Pricing Mobile Spacing Fixes */
+@media (max-width: 768px) {
+
+    /* Home Page CTA - convert to card layout on mobile for better spacing/boundaries */
+    .cta-content-card {
+        background-color: var(--bg-card);
+        padding: 40px 20px;
+        border-radius: 20px;
+        box-shadow: var(--shadow-md);
+        margin-bottom: 20px;
+        /* Ensure it doesn't touch the footer */
+    }
+
+    /* Ensure section has enough padding to accommodate the card's margin/shadow */
+    .home-cta {
+        padding-bottom: 60px !important;
+        padding-top: 40px !important;
+    }
+
+    /* Restore spacing inside Pricing CTA box (below button) and below the card */
+    .pricing-cta-box {
+        padding-bottom: 60px !important;
+        margin-bottom: 80px;
+    }
+}
+
+/* 3: Contact Page Icons - Fix alignment on Tablet & Mobile */
+@media (max-width: 1024px) {
+    .contact-info-row {
+        flex-direction: row !important;
+        align-items: center !important;
+        justify-content: flex-start !important;
+        text-align: left !important;
+    }
+
+    /* Ensure text alignment within the row is left, overriding any center alignments */
+    .contact-info-row>div:not(.contact-icon-box) {
+        text-align: left !important;
+        align-items: flex-start !important;
+    }
+
+    /* Force the icon box to stay circular and centered */
+    .contact-icon-box {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        flex-shrink: 0 !important;
+        width: 50px !important;
+        height: 50px !important;
+        border-radius: 50% !important;
+    }
+}
+
+/* 4: Contact Page Button - Reduce size on Tablet & Desktop (All non-mobile) */
+@media (min-width: 768px) {
+    .contact-submit-btn {
+        width: auto !important;
+        min-width: 180px;
+        padding-left: 30px;
+        padding-right: 30px;
+        display: block !important;
+        margin: 0 auto !important;
+    }
+}
+
+/* 5: Global Mobile Spacing & Layout Safety */
+@media (max-width: 768px) {
+
+    /* Global container padding increase to prevent edge-touching */
+    .container {
+        padding-left: 24px !important;
+        padding-right: 24px !important;
+    }
+
+    /* Standardize section vertical spacing for mobile */
+    .section-padding {
+        padding-top: 60px !important;
+        padding-bottom: 60px !important;
+    }
+
+    /* Ensure Hero section has enough top clearance */
+    .hero {
+        padding-top: 140px;
+        /* Increased from 120px to prevent header overlap */
+    }
+
+    /* Safety constraint for full-width cards on small screens */
+    .feature-card,
+    .pricing-card,
+    .about-card,
+    .team-card,
+    .auth-card,
+    .kanban-col {
+        max-width: 100% !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        /* Ensure they fill the available specific container width (minus padding) */
+    }
+
+    /* Add breathing room for stacked full-width buttons */
+    .btn {
+        margin-bottom: 8px;
+    }
+
+    .btn:last-child {
+        margin-bottom: 0;
+    }
+
+    /* Reset margin for inline buttons (like in hero) if they are side-by-side */
+    .hero-cta .btn {
+        margin-bottom: 0;
+    }
+}
