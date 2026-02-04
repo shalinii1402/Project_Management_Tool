@@ -75,6 +75,7 @@ html,
 body {
     overflow-x: hidden;
     width: 100%;
+    position: relative;
 }
 
 body {
@@ -107,12 +108,12 @@ button {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .section-padding {
     padding: 80px 0;
-    overflow: hidden;
-    /* Prevents reveal animations from causing horizontal scroll */
 }
 
 .text-center {
@@ -133,6 +134,8 @@ button {
 
 .grid {
     display: grid;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .contact-layout {
@@ -468,6 +471,9 @@ header {
     height: 100%;
     display: flex;
     flex-direction: column;
+    width: 100%;
+    box-sizing: border-box;
+    max-width: 100%;
 }
 
 .kanban-header {
@@ -535,6 +541,9 @@ header {
     border: 1px solid var(--border-color);
     transition: all var(--transition-speed);
     text-align: center;
+    width: 100%;
+    box-sizing: border-box;
+    max-width: 100%;
 }
 
 .feature-card:hover {
@@ -574,6 +583,9 @@ header {
     text-align: center;
     transition: all var(--transition-speed);
     position: relative;
+    width: 100%;
+    box-sizing: border-box;
+    max-width: 100%;
 }
 
 .pricing-card.popular {
@@ -1017,6 +1029,60 @@ footer {
     }
 }
 
+/* --- ROOT LEVEL RESPONSIVE OVERRIDES --- */
+
+/* Tablet Grid Override (768px to 1024px) */
+@media (min-width: 768px) and (max-width: 1024px) {
+
+    /* Force 2-column grid for About & Team sections */
+    .about-grid,
+    #team-section .about-grid {
+        display: grid !important;
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 20px !important;
+        justify-content: center;
+        width: 100%;
+    }
+
+    /* Strict Card Sizing for Tablet 2-Column Layout */
+    .team-card,
+    #team-section .team-card {
+        width: 100% !important;
+        max-width: 340px !important;
+        /* Prevents overlap on 768px screens */
+        margin: 0 auto !important;
+        padding: 25px !important;
+    }
+
+    #team-section {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+}
+
+/* Desktop Grid Override (1025px+) */
+@media (min-width: 1025px) {
+
+    /* Mission & Vision - Always 2 columns side-by-side */
+    .grid.about-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        align-items: stretch;
+    }
+
+    /* Team Section - Always 3 columns */
+    #team-section .about-grid {
+        grid-template-columns: repeat(3, 1fr) !important;
+    }
+
+    /* Enhance card layout on desktop */
+    .about-card {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+}
+
 @media (max-width: 768px) {
     .nav-menu {
         gap: 15px;
@@ -1071,7 +1137,11 @@ footer {
         margin-bottom: 40px;
     }
 
-    .kanban-board {
+    .kanban-board,
+    .dashboard-stats,
+    .dashboard-stats-admin,
+    .features-grid,
+    .pricing-grid {
         grid-template-columns: 1fr;
     }
 
@@ -1079,9 +1149,86 @@ footer {
         grid-template-columns: 1fr;
     }
 
-    .dashboard-stats,
-    .dashboard-stats-admin {
+    .pricing-card.popular {
+        transform: none;
+    }
+
+    /* Universal Card Containment */
+    .reveal-left,
+    .reveal-right {
+        transform: translateY(20px);
+        /* Convert horizontal animation to vertical on mobile to prevent clipping */
+    }
+
+    .about-grid {
         grid-template-columns: 1fr;
+        gap: 1.5rem;
+        width: 100%;
+        margin: 0 auto;
+    }
+
+
+
+
+
+
+
+    #team-section .text-center h2 {
+        font-size: 1.8rem !important;
+        margin-bottom: 0.5rem !important;
+    }
+
+    #team-section .text-center p {
+        font-size: 0.95rem !important;
+        margin-bottom: 30px !important;
+    }
+
+    /* Extra spacing for Team Section on Mobile/Tablet */
+    #team-section {
+        padding-bottom: 80px !important;
+        margin-bottom: 20px !important;
+    }
+
+    .team-card {
+        padding: 20px !important;
+        max-width: 400px !important;
+        /* Slightly more compact */
+        margin: 0 auto !important;
+    }
+
+    .feature-card,
+    .pricing-card,
+    .about-card,
+    .team-card,
+    .kanban-col,
+    .auth-card {
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        padding: 20px !important;
+        overflow: visible;
+        /* Ensure shadows aren't cut */
+    }
+
+    .team-card img {
+        width: 100px !important;
+        height: 100px !important;
+        margin-bottom: 15px !important;
+    }
+
+    .team-card h3 {
+        font-size: 1.25rem !important;
+        margin-bottom: 5px !important;
+    }
+
+    .team-card .role {
+        font-size: 0.9rem !important;
+        margin-bottom: 10px !important;
+    }
+
+    .team-card .bio {
+        font-size: 0.85rem !important;
+        line-height: 1.5 !important;
     }
 
     /* Home 2 Feature Section Centering */
@@ -1168,7 +1315,12 @@ footer {
 
 @media (max-width: 480px) {
     .team-card {
-        padding: 20px;
+        padding: 15px !important;
+    }
+
+    .team-card img {
+        width: 80px !important;
+        height: 80px !important;
     }
 }
 
@@ -1409,12 +1561,56 @@ button:disabled {
         gap: 1rem;
     }
 
-    .grid {
-        grid-template-columns: 1fr !important;
+    .container {
+        padding: 0 15px !important;
     }
 
-    .feature-card {
-        padding: 25px;
+    .grid {
+        grid-template-columns: 1fr !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        gap: 1.5rem !important;
+    }
+
+    .feature-card,
+    .pricing-card,
+    .about-card,
+    .team-card {
+        padding: 15px !important;
+        width: 100% !important;
+        max-width: 320px !important;
+        /* Safety max-width for very small phones */
+        margin: 0 auto !important;
+    }
+
+    .team-card img {
+        width: 70px !important;
+        height: 70px !important;
+        margin-bottom: 10px !important;
+    }
+
+    .team-card h3 {
+        font-size: 1.1rem !important;
+    }
+
+    .team-card .role {
+        font-size: 0.85rem !important;
+    }
+
+    .team-card .bio {
+        font-size: 0.8rem !important;
+        line-height: 1.3 !important;
+    }
+
+    .kanban-col {
+        padding: 15px;
+    }
+
+    .pricing-card.popular {
+        transform: none;
+        /* Scale causes overflow on small screens */
+        border: 2px solid var(--primary-color);
     }
 
     .checkbox-group span {
@@ -1473,7 +1669,7 @@ button:disabled {
 
 .reveal-left {
     opacity: 0;
-    transform: translateX(-50px);
+    transform: translateX(-30px);
     transition: all 0.8s ease-out;
 }
 
@@ -1484,7 +1680,7 @@ button:disabled {
 
 .reveal-right {
     opacity: 0;
-    transform: translateX(50px);
+    transform: translateX(30px);
     transition: all 0.8s ease-out;
 }
 
