@@ -138,6 +138,10 @@ button {
     box-sizing: border-box;
 }
 
+.nowrap {
+    white-space: nowrap;
+}
+
 .contact-layout {
     grid-template-columns: 1fr 1fr;
 }
@@ -1120,17 +1124,6 @@ footer {
         gap: 40px;
     }
 
-    /* Target the contact detail rows (flex) */
-    .contact-layout .reveal-left>div>div {
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .contact-socials {
-        justify-content: center;
-    }
-
     .hero-content {
         padding-right: 0;
         text-align: center;
@@ -1364,6 +1357,10 @@ footer {
     text-align: center;
     margin-top: 80px;
     box-shadow: 0 20px 40px rgba(99, 102, 241, 0.2);
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    box-sizing: border-box;
 }
 
 .cta-box h2 {
@@ -1776,14 +1773,7 @@ button:disabled {
     -webkit-overflow-scrolling: touch;
 }
 
-/* Fix Follow Us Social Icons Alignment on Mobile */
-@media (max-width: 768px) {
-    .contact-layout .reveal-left>div>.contact-socials {
-        flex-direction: row !important;
-        justify-content: center;
-        gap: 15px;
-    }
-}
+
 
 /* --- FIXES FOR USER REQUESTS --- */
 
@@ -1813,23 +1803,38 @@ button:disabled {
     }
 }
 
-/* 3: Contact Page Icons - Fix alignment on Tablet & Mobile */
+/* 3: Contact Page - Center-align on Tablet & Mobile */
 @media (max-width: 1024px) {
+    .reveal-left {
+        text-align: center !important;
+    }
+
     .contact-info-row {
-        flex-direction: row !important;
+        flex-direction: column !important;
         align-items: center !important;
-        justify-content: flex-start !important;
-        text-align: left !important;
+        justify-content: center !important;
+        text-align: center !important;
     }
 
-    /* Ensure text alignment within the row is left, overriding any center alignments */
+    /* Ensure text blocks within row are centered */
     .contact-info-row>div:not(.contact-icon-box) {
-        text-align: left !important;
-        align-items: flex-start !important;
+        text-align: center !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
     }
 
-    /* Force the icon box to stay circular and centered */
+    /* Center social icons section */
+    .contact-socials {
+        display: flex !important;
+        flex-direction: row !important;
+        justify-content: center !important;
+        flex-wrap: nowrap !important;
+    }
+
+    /* Add spacing below icon when stacked vertically */
     .contact-icon-box {
+        margin-bottom: 12px !important;
         display: flex !important;
         align-items: center !important;
         justify-content: center !important;
@@ -1884,11 +1889,29 @@ button:disabled {
     .about-card,
     .team-card,
     .auth-card,
-    .kanban-col {
+    .kanban-col,
+    .cta-box {
         max-width: 100% !important;
-        margin-left: 0 !important;
-        margin-right: 0 !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
         /* Ensure they fill the available specific container width (minus padding) */
+    }
+
+    /* Specific spacing for CTA Box on Mobile */
+    .cta-box {
+        padding: 40px 20px !important;
+        margin-top: 40px !important;
+        margin-bottom: 20px !important;
+        border-radius: 20px !important;
+    }
+
+    .cta-box h2 {
+        font-size: 1.75rem !important;
+    }
+
+    .cta-box p {
+        font-size: 0.95rem !important;
+        padding: 0 10px;
     }
 
     /* Add breathing room for stacked full-width buttons */
