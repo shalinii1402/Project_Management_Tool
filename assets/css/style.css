@@ -1809,39 +1809,67 @@ button:disabled {
         text-align: center !important;
     }
 
-    .contact-info-row {
-        flex-direction: column !important;
-        align-items: center !important;
-        justify-content: center !important;
-        text-align: center !important;
-    }
-
-    /* Ensure text blocks within row are centered */
-    .contact-info-row>div:not(.contact-icon-box) {
-        text-align: center !important;
+    /* Target the container of the rows to center the whole block */
+    .contact-info-group {
         display: flex !important;
         flex-direction: column !important;
         align-items: center !important;
+        width: 100% !important;
     }
 
-    /* Center social icons section */
+    .contact-info-row {
+        flex-direction: row !important;
+        /* Using flex-start instead of center so the icon aligns with the first 
+           line of a multi-line address, keeping it consistent with email/phone. */
+        align-items: flex-start !important;
+        justify-content: flex-start !important;
+        text-align: left !important;
+        gap: 15px !important;
+        margin-bottom: 25px !important;
+        /* Consistent max-width ensures that all rows have the same 
+           starting point when the parent centers the collection. */
+        width: 100% !important;
+        max-width: 320px !important;
+    }
+
+    /* To achieve "one single line", we hide the redundant H3 labels on smaller screens */
+    .contact-info-row h3 {
+        display: none !important;
+    }
+
+    /* Ensure text containers don't force a stack */
+    .contact-info-row>div:not(.contact-icon-box) {
+        text-align: left !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: flex-start !important;
+    }
+
+    .contact-info-row p {
+        margin-bottom: 0 !important;
+        font-size: 1rem;
+        line-height: 1.4;
+    }
+
     .contact-socials {
         display: flex !important;
         flex-direction: row !important;
         justify-content: center !important;
-        flex-wrap: nowrap !important;
+        margin-top: 10px;
     }
 
-    /* Add spacing below icon when stacked vertically */
     .contact-icon-box {
-        margin-bottom: 12px !important;
+        margin-bottom: 0 !important;
+        margin-top: 2px !important;
+        /* Small offset to align icon with first line of text */
         display: flex !important;
         align-items: center !important;
         justify-content: center !important;
         flex-shrink: 0 !important;
-        width: 50px !important;
-        height: 50px !important;
+        width: 48px !important;
+        height: 48px !important;
         border-radius: 50% !important;
+        background: var(--bg-surface) !important;
     }
 }
 
