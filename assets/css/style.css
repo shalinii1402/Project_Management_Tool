@@ -1894,9 +1894,12 @@ button:disabled {
         padding-right: 24px !important;
     }
 
-    /* Restore full width for contact button on mobile */
+    /* Reduce width from full-width to auto on mobile */
     .contact-submit-btn {
-        width: 100% !important;
+        width: auto !important;
+        min-width: 200px;
+        margin: 0 auto !important;
+        display: block !important;
     }
 
     /* Standardize section vertical spacing for mobile */
