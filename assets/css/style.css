@@ -1804,12 +1804,13 @@ button:disabled {
 }
 
 /* 3: Contact Page - Center-align on Tablet & Mobile */
+/* 3: Contact Page - Center-align on Tablet & Mobile */
 @media (max-width: 1024px) {
     .reveal-left {
         text-align: center !important;
     }
 
-    /* Target the container of the rows to center the whole block */
+    /* Container */
     .contact-info-group {
         display: flex !important;
         flex-direction: column !important;
@@ -1817,59 +1818,76 @@ button:disabled {
         width: 100% !important;
     }
 
+    /* Row Layout - Flex with Wrap for [Icon Label] / [Value] stacking */
     .contact-info-row {
-        flex-direction: row !important;
-        /* Using flex-start instead of center so the icon aligns with the first 
-           line of a multi-line address, keeping it consistent with email/phone. */
-        align-items: flex-start !important;
-        justify-content: flex-start !important;
-        text-align: left !important;
-        gap: 15px !important;
-        margin-bottom: 25px !important;
-        /* Consistent max-width ensures that all rows have the same 
-           starting point when the parent centers the collection. */
-        width: 100% !important;
-        max-width: 320px !important;
-    }
-
-    /* To achieve "one single line", we hide the redundant H3 labels on smaller screens */
-    .contact-info-row h3 {
-        display: none !important;
-    }
-
-    /* Ensure text containers don't force a stack */
-    .contact-info-row>div:not(.contact-icon-box) {
-        text-align: left !important;
         display: flex !important;
-        flex-direction: column !important;
-        align-items: flex-start !important;
+        flex-direction: row !important;
+        flex-wrap: wrap !important;
+        justify-content: center !important;
+        align-items: center !important;
+        column-gap: 15px !important;
+        row-gap: 5px !important;
+        margin-bottom: 30px !important;
+        width: 100% !important;
+        max-width: none !important;
     }
 
+    /* Unwrap the text container so H3 and P become flex items */
+    .contact-info-row>div:not(.contact-icon-box) {
+        display: contents !important;
+    }
+
+    /* Icon - First in visual order */
+    .contact-icon-box {
+        order: 1;
+        margin: 0 !important;
+        flex-shrink: 0 !important;
+        width: 50px !important;
+        height: 50px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        border-radius: 50% !important;
+        background: var(--bg-surface) !important;
+    }
+
+    /* Label - Second in visual order (Next to Icon) */
+    .contact-info-row h3 {
+        display: block !important;
+        order: 2;
+        margin: 0 !important;
+        font-size: 1.1rem !important;
+        font-weight: 600;
+        text-align: left !important;
+    }
+
+    /* Value - Third, forces new line */
     .contact-info-row p {
+        order: 3;
+        flex-basis: 100% !important;
+        width: 100% !important;
+        margin-top: 5px !important;
         margin-bottom: 0 !important;
-        font-size: 1rem;
+        text-align: center !important;
+        padding-left: 0;
+        font-size: 1rem !important;
         line-height: 1.4;
     }
 
+    /* Force address split on mobile */
+    .contact-info-row p span.nowrap {
+        display: block !important;
+        white-space: normal !important;
+        margin-top: 2px;
+    }
+
+    /* Socials */
     .contact-socials {
         display: flex !important;
         flex-direction: row !important;
         justify-content: center !important;
         margin-top: 10px;
-    }
-
-    .contact-icon-box {
-        margin-bottom: 0 !important;
-        margin-top: 2px !important;
-        /* Small offset to align icon with first line of text */
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        flex-shrink: 0 !important;
-        width: 48px !important;
-        height: 48px !important;
-        border-radius: 50% !important;
-        background: var(--bg-surface) !important;
+        gap: 15px !important;
     }
 }
 
