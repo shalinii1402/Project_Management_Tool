@@ -47,12 +47,17 @@
                 Admin</div>
 
             <nav class="sidebar-menu" style="margin-top: 0;">
-                <a href="#" class="sidebar-link active" data-section="overview"><i class="fas fa-chart-pie"></i>
-                    Overview</a>
-                <a href="#" class="sidebar-link" data-section="users"><i class="fas fa-users"></i> Users</a>
-                <a href="#" class="sidebar-link" data-section="projects"><i class="fas fa-briefcase"></i> Projects</a>
-                <a href="#" class="sidebar-link" data-section="billing"><i class="fas fa-file-invoice-dollar"></i>
-                    Billing</a>
+                <a href="#" class="sidebar-link active" data-section="overview"><i class="fas fa-tachometer-alt"></i>
+                    Dashboard</a>
+                <a href="#" class="sidebar-link" data-section="users"><i class="fas fa-users-cog"></i> User
+                    Management</a>
+                <a href="#" class="sidebar-link" data-section="projects"><i class="fas fa-project-diagram"></i> Global
+                    Projects</a>
+                <a href="#" class="sidebar-link" data-section="analytics"><i class="fas fa-chart-line"></i>
+                    Analytics</a>
+                <a href="#" class="sidebar-link" data-section="billing"><i class="fas fa-credit-card"></i>
+                    Subscriptions</a>
+                <a href="#" class="sidebar-link" data-section="system"><i class="fas fa-server"></i> System Status</a>
             </nav>
 
             <div style="margin-top: auto;">
@@ -66,8 +71,16 @@
             <div class="dashboard-header-container"
                 style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
                 <div style="display: flex; align-items: center; gap: 15px;">
-                    <button class="dashboard-sidebar-btn mobile-only"><i class="fas fa-bars"></i></button>
-                    <h2 id="section-title" style="margin-bottom: 0;">Admin Overview</h2>
+                    <button class="dashboard-sidebar-btn mobile-only btn-primary"
+                        style="padding: 0; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 8px; background: #ef4444; border-color: #ef4444;">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <div>
+                        <div class="role-tag admin" style="margin-bottom: 5px;">
+                            <i class="fas fa-shield-alt"></i> Admin Account
+                        </div>
+                        <h2 id="section-title" style="margin-bottom: 0; font-size: 1.5rem;">System Overview</h2>
+                    </div>
                 </div>
                 <div style="display: flex; align-items: center; gap: 20px;">
                     <div class="dropdown">
@@ -85,31 +98,68 @@
 
             <!-- Overview Section -->
             <div id="overview-section" class="dashboard-section active">
-                <!-- Stats -->
-                <div class="grid gap-2 dashboard-stats-admin" style="margin-bottom: 40px;">
+                <!-- Stats Grid -->
+                <div class="grid gap-2 dashboard-stats-admin" style="margin-bottom: 30px;">
+                    <div class="kanban-col reveal-up">
+                        <p style="color: var(--text-light); font-size: 0.8rem; text-transform: uppercase;">Weekly
+                            Revenue</p>
+                        <h2 style="color: #10b981;">$12,450.00</h2>
+                        <span style="font-size: 0.8rem; color: #10b981;"><i class="fas fa-arrow-up"></i> 12%
+                            increase</span>
+                    </div>
                     <div class="kanban-col reveal-up reveal-delay-1">
+                        <p style="color: var(--text-light); font-size: 0.8rem; text-transform: uppercase;">Active Users
+                        </p>
                         <h2>1,240</h2>
-                        <p>Total Users</p>
+                        <span style="font-size: 0.8rem; color: #10b981;"><i class="fas fa-arrow-up"></i> 5%
+                            increase</span>
                     </div>
                     <div class="kanban-col reveal-up reveal-delay-2">
-                        <h2>85</h2>
-                        <p>Active Projects</p>
+                        <p style="color: var(--text-light); font-size: 0.8rem; text-transform: uppercase;">Project
+                            Success Rate</p>
+                        <h2>94.2%</h2>
+                        <span style="font-size: 0.8rem; color: #3b82f6;">Stable performance</span>
                     </div>
                     <div class="kanban-col reveal-up reveal-delay-3">
-                        <h2>$12,450</h2>
-                        <p>Revenue</p>
-                    </div>
-                    <div class="kanban-col reveal-up reveal-delay-4">
-                        <h2>12</h2>
-                        <p>Support Tickets</p>
+                        <p style="color: var(--text-light); font-size: 0.8rem; text-transform: uppercase;">Server Uptime
+                        </p>
+                        <h2 style="color: #6366f1;">99.99%</h2>
+                        <span style="font-size: 0.8rem; color: #10b981;">All systems online</span>
                     </div>
                 </div>
 
-                <!-- Recent Activity Placeholder -->
-                <div class="reveal-up"
-                    style="background-color: var(--bg-card); padding: 20px; border-radius: 12px; border: 1px solid var(--border-color);">
-                    <h3>Recent Activity</h3>
-                    <p style="margin-top: 10px; color: var(--text-muted);">System status: All systems operational.</p>
+                <!-- Secondary Admin Widgets -->
+                <div class="grid gap-2" style="grid-template-columns: 1fr 1fr; margin-bottom: 30px;">
+                    <div class="kanban-col reveal-left">
+                        <h3 style="margin-bottom: 20px;">System Alerts</h3>
+                        <div style="display: flex; flex-direction: column; gap: 10px;">
+                            <div
+                                style="padding: 12px; background: rgba(239, 68, 68, 0.1); border-left: 4px solid #ef4444; border-radius: 4px; font-size: 0.85rem;">
+                                <strong>Critical:</strong> Database backup failed for region US-East.
+                            </div>
+                            <div
+                                style="padding: 12px; background: rgba(245, 158, 11, 0.1); border-left: 4px solid #f59e0b; border-radius: 4px; font-size: 0.85rem;">
+                                <strong>Warning:</strong> High latency detected on API Gateway.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="kanban-col reveal-right">
+                        <h3 style="margin-bottom: 20px;">Administrative Logs</h3>
+                        <div style="font-size: 0.85rem; color: var(--text-muted);">
+                            <div
+                                style="margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px solid var(--border-color);">
+                                <span style="color: var(--primary-color);">Admin</span> updated User Permission:
+                                <strong>Alex Johnson</strong>
+                                <br><small>10 minutes ago</small>
+                            </div>
+                            <div
+                                style="margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px solid var(--border-color);">
+                                <span style="color: var(--primary-color);">System</span> auto-scaled Web Cluster (Nodes:
+                                5)
+                                <br><small>25 minutes ago</small>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -176,12 +226,59 @@
                 </div>
             </div>
 
-            <!-- Billing Section -->
-            <div id="billing-section" class="dashboard-section">
-                <div
-                    style="background-color: var(--bg-card); padding: 20px; border-radius: 12px; border: 1px solid var(--border-color);">
-                    <h3>Billing & Invoices</h3>
-                    <p>Manage subscriptions and view financial reports.</p>
+            <div id="analytics-section" class="dashboard-section">
+                <div class="kanban-col">
+                    <h3>Engagement Analytics</h3>
+                    <div
+                        style="height: 200px; background: var(--bg-surface); border-radius: 12px; margin-top: 20px; display: flex; align-items: flex-end; justify-content: space-around; padding: 20px;">
+                        <div
+                            style="width: 40px; height: 60%; background: var(--primary-color); border-radius: 4px 4px 0 0;">
+                        </div>
+                        <div
+                            style="width: 40px; height: 85%; background: var(--primary-color); border-radius: 4px 4px 0 0;">
+                        </div>
+                        <div
+                            style="width: 40px; height: 45%; background: var(--primary-color); border-radius: 4px 4px 0 0;">
+                        </div>
+                        <div
+                            style="width: 40px; height: 95%; background: var(--secondary-color); border-radius: 4px 4px 0 0;">
+                        </div>
+                        <div
+                            style="width: 40px; height: 75%; background: var(--primary-color); border-radius: 4px 4px 0 0;">
+                        </div>
+                    </div>
+                    <p style="text-align: center; margin-top: 15px; font-size: 0.9rem; color: var(--text-muted);">User
+                        growth trend for the current month.</p>
+                </div>
+            </div>
+
+            <div id="system-section" class="dashboard-section">
+                <div class="grid gap-2" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
+                    <div class="kanban-col">
+                        <h4>Server Resources</h4>
+                        <div style="margin-top: 15px;">
+                            <div
+                                style="display: flex; justify-content: space-between; margin-bottom: 5px; font-size: 0.85rem;">
+                                <span>CPU Usage</span>
+                                <span>32%</span>
+                            </div>
+                            <div
+                                style="height: 8px; background: var(--bg-surface); border-radius: 4px; overflow: hidden;">
+                                <div style="width: 32%; height: 100%; background: #10b981;"></div>
+                            </div>
+                        </div>
+                        <div style="margin-top: 15px;">
+                            <div
+                                style="display: flex; justify-content: space-between; margin-bottom: 5px; font-size: 0.85rem;">
+                                <span>Memory</span>
+                                <span>68%</span>
+                            </div>
+                            <div
+                                style="height: 8px; background: var(--bg-surface); border-radius: 4px; overflow: hidden;">
+                                <div style="width: 68%; height: 100%; background: #f59e0b;"></div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </main>

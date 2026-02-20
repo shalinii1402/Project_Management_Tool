@@ -79,11 +79,14 @@ body {
 }
 
 body {
-    font-family: 'Inter', sans-serif;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     background-color: var(--bg-body);
     color: var(--text-main);
     line-height: 1.6;
     transition: background-color var(--transition-speed), color var(--transition-speed);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
 }
 
 a {
@@ -221,21 +224,49 @@ p {
     height: 44px;
     border-radius: 8px;
     font-weight: 600;
-    transition: all var(--transition-speed);
+    transition: transform var(--transition-speed), background-color var(--transition-speed), box-shadow var(--transition-speed);
     font-size: 1rem;
     white-space: nowrap;
+    border: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    transform: translateZ(0);
+    /* Force hardware acceleration for crispness */
 }
 
 .btn-primary {
-    background-color: var(--primary-color);
+    background: linear-gradient(135deg, #4f46e5, #7c3aed);
+    /* More vibrant Indigo-Violet */
     color: white;
-    box-shadow: 0 4px 6px rgba(99, 102, 241, 0.3);
+    box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.4),
+        0 2px 4px -1px rgba(79, 70, 229, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    letter-spacing: 0.02em;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-primary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(rgba(255, 255, 255, 0.1), transparent);
+    opacity: 0;
+    transition: opacity var(--transition-speed);
+}
+
+.btn-primary:hover::before {
+    opacity: 1;
 }
 
 .btn-primary:hover {
     background-color: var(--primary-hover);
-    transform: translateY(-2px);
-    box-shadow: 0 6px 12px rgba(99, 102, 241, 0.4);
+    transform: translate3d(0, -2px, 0);
+    box-shadow: 0 10px 15px -3px rgba(99, 102, 241, 0.4), 0 4px 6px -2px rgba(99, 102, 241, 0.2);
 }
 
 .btn-secondary {
@@ -270,6 +301,39 @@ header {
     height: 80px;
     display: flex;
     align-items: center;
+}
+
+/* Dashboard Role Tags */
+.role-tag {
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 4px 12px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.role-tag.admin {
+    background: rgba(239, 68, 68, 0.1);
+    color: #ef4444;
+    border: 1px solid rgba(239, 68, 68, 0.2);
+}
+
+.role-tag.user {
+    background: rgba(99, 102, 241, 0.1);
+    color: var(--primary-color);
+    border: 1px solid rgba(99, 102, 241, 0.2);
+}
+
+.nav-hint {
+    font-size: 0.8rem;
+    color: var(--text-light);
+    display: flex;
+    align-items: center;
+    gap: 5px;
 }
 
 [data-theme="dark"] header {
@@ -916,12 +980,24 @@ footer {
         display: flex !important;
         align-items: center;
         justify-content: center;
-        font-size: 1.5rem;
-        color: var(--text-main);
-        order: 3;
-        width: 44px;
-        height: 44px;
+        font-size: 1.2rem;
+        color: white;
+        background: var(--primary-color);
+        order: -1;
+        /* Move to start */
+        width: 40px;
+        height: 40px;
+        border-radius: 8px;
         z-index: 1001;
+        box-shadow: 0 4px 10px rgba(99, 102, 241, 0.3);
+    }
+
+    .dashboard-header-container {
+        padding: 15px;
+        background: var(--bg-card);
+        border-radius: 12px;
+        border: 1px solid var(--border-color);
+        margin-top: 10px;
     }
 
     .nav-right .btn,
@@ -1247,18 +1323,20 @@ footer {
 
 /* Utility Animations */
 .fade-in {
-    animation: fadeIn 0.5s ease-in;
+    animation: fadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    backface-visibility: hidden;
+    will-change: transform, opacity;
 }
 
 @keyframes fadeIn {
     from {
         opacity: 0;
-        transform: translateY(20px);
+        transform: translate3d(0, 20px, 0);
     }
 
     to {
         opacity: 1;
-        transform: translateY(0);
+        transform: translate3d(0, 0, 0);
     }
 }
 
@@ -1493,8 +1571,10 @@ footer {
     font-size: 1.25rem;
     background: var(--bg-card);
     color: var(--text-main);
-    transition: all 0.2s;
+    transition: transform 0.2s, box-shadow 0.2s, color 0.2s, border-color 0.2s;
     cursor: pointer;
+    transform: translateZ(0);
+    -webkit-font-smoothing: antialiased;
 }
 
 .social-btn:hover {
