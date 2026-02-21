@@ -1318,7 +1318,7 @@ footer {
 }
 
 .mobile-only {
-    display: none;
+    display: none !important;
 }
 
 /* Utility Animations */
@@ -2055,5 +2055,90 @@ button:disabled {
     /* Reset margin for inline buttons (like in hero) if they are side-by-side */
     .hero-cta .btn {
         margin-bottom: 0;
+    }
+}
+
+/* ================================================================
+   DASHBOARD ROLE IDENTITY — Responsive Clarity (360 / 768 / 1024)
+   Ensures User Dashboard and Admin Dashboard are clearly distinct
+   at every breakpoint with no cross-role navigation confusion.
+   ================================================================ */
+
+/* --- Shared dashboard header responsiveness --- */
+@media (max-width: 1024px) {
+
+    /* Hide profile name text on tablets to save space, keep avatar */
+    .dashboard-btn span {
+        display: none;
+    }
+
+    /* Ensure role tag remains fully visible */
+    .role-tag {
+        font-size: 0.7rem;
+        padding: 3px 10px;
+    }
+
+    /* Header right side: compress gap */
+    .dashboard-header-container>div:last-child {
+        gap: 10px !important;
+    }
+}
+
+@media (max-width: 768px) {
+
+    /* Role tag stays visible, slightly smaller */
+    .role-tag {
+        font-size: 0.68rem;
+        padding: 3px 9px;
+        letter-spacing: 0.03em;
+    }
+
+    /* Section title wraps clearly */
+    #section-title {
+        font-size: 1.2rem !important;
+        white-space: normal;
+    }
+
+    /* Compress header further on phone-tablet */
+    .dashboard-header-container {
+        padding: 12px !important;
+        gap: 8px !important;
+    }
+
+    /* Profile button on mobile: just show avatar circle */
+    .dashboard-btn span {
+        display: none;
+    }
+
+    /* Notification badge stays visible */
+    .dashboard-header-container button[style*="border-radius: 50%"] {
+        width: 36px !important;
+        height: 36px !important;
+    }
+}
+
+@media (max-width: 480px) {
+
+    /* At 360px: role tag wraps tightly */
+    .role-tag {
+        font-size: 0.65rem;
+        padding: 2px 8px;
+        gap: 4px;
+    }
+
+    /* Section title is compact but readable */
+    #section-title {
+        font-size: 1.05rem !important;
+    }
+
+    /* Tighten header padding at smallest size */
+    .dashboard-header-container {
+        padding: 10px 12px !important;
+        margin-bottom: 18px !important;
+    }
+
+    /* Only show avatar (no label text) for profile button */
+    .dashboard-btn span {
+        display: none !important;
     }
 }

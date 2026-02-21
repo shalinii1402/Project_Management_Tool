@@ -5,9 +5,487 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Dashboard - ProjectFlow</title>
+    <meta name="description"
+        content="Your personal ProjectFlow dashboard. Track tasks, view progress, manage bookings, and stay on top of your work.">
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ===== USER DASHBOARD SPECIFIC STYLES ===== */
+
+        /* Welcome Banner */
+        .user-welcome-banner {
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #ec4899 100%);
+            border-radius: 16px;
+            padding: 28px 32px;
+            margin-bottom: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.35);
+        }
+
+        .user-welcome-banner::before {
+            content: '';
+            position: absolute;
+            top: -40px;
+            right: -40px;
+            width: 200px;
+            height: 200px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 50%;
+        }
+
+        .user-welcome-banner::after {
+            content: '';
+            position: absolute;
+            bottom: -60px;
+            right: 120px;
+            width: 160px;
+            height: 160px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+        }
+
+        .welcome-text h2 {
+            color: white;
+            font-size: 1.6rem;
+            margin-bottom: 6px;
+        }
+
+        .welcome-text p {
+            color: rgba(255, 255, 255, 0.85);
+            margin-bottom: 0;
+            font-size: 0.95rem;
+        }
+
+        .welcome-avatar {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+            border: 3px solid rgba(255, 255, 255, 0.4);
+            flex-shrink: 0;
+            backdrop-filter: blur(4px);
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Status Cards */
+        .user-stat-card {
+            background-color: var(--bg-card);
+            border-radius: 14px;
+            padding: 20px;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-md);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            transition: transform 0.25s, box-shadow 0.25s;
+        }
+
+        .user-stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .stat-icon-ring {
+            width: 46px;
+            height: 46px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+        }
+
+        .stat-icon-ring.indigo {
+            background: rgba(99, 102, 241, 0.12);
+            color: #6366f1;
+        }
+
+        .stat-icon-ring.amber {
+            background: rgba(245, 158, 11, 0.12);
+            color: #f59e0b;
+        }
+
+        .stat-icon-ring.emerald {
+            background: rgba(16, 185, 129, 0.12);
+            color: #10b981;
+        }
+
+        .stat-icon-ring.rose {
+            background: rgba(244, 63, 94, 0.12);
+            color: #f43f5e;
+        }
+
+        .stat-card-number {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--text-main);
+            line-height: 1;
+            margin: 0;
+        }
+
+        .stat-card-label {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            font-weight: 500;
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+
+        /* Progress Bar */
+        .progress-bar-wrap {
+            background: var(--bg-surface);
+            height: 8px;
+            border-radius: 99px;
+            overflow: hidden;
+            margin-top: 6px;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            border-radius: 99px;
+            transition: width 1s ease;
+        }
+
+        /* Quick Action Buttons */
+        .quick-actions-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 14px;
+            margin-bottom: 28px;
+        }
+
+        .quick-action-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            padding: 18px 10px;
+            border-radius: 14px;
+            border: 1.5px solid var(--border-color);
+            background: var(--bg-card);
+            cursor: pointer;
+            transition: all 0.25s;
+            text-align: center;
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+
+        .quick-action-btn:hover {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+            background: rgba(99, 102, 241, 0.05);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 18px rgba(99, 102, 241, 0.15);
+        }
+
+        .quick-action-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+        }
+
+        /* Activity Feed */
+        .activity-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            padding: 14px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .activity-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .activity-dot {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .activity-content strong {
+            display: block;
+            font-size: 0.88rem;
+            color: var(--text-main);
+            margin-bottom: 2px;
+        }
+
+        .activity-content span {
+            font-size: 0.78rem;
+            color: var(--text-light);
+        }
+
+        /* Task List */
+        .task-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .task-item:last-child {
+            border-bottom: none;
+        }
+
+        .task-check {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 2px solid var(--border-color);
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .task-check.done {
+            background: #10b981;
+            border-color: #10b981;
+            color: white;
+            font-size: 0.65rem;
+        }
+
+        .task-check.in-progress {
+            border-color: #f59e0b;
+        }
+
+        .task-meta {
+            margin-left: auto;
+            font-size: 0.75rem;
+            color: var(--text-light);
+            white-space: nowrap;
+        }
+
+        .task-priority {
+            font-size: 0.7rem;
+            padding: 2px 8px;
+            border-radius: 99px;
+            font-weight: 600;
+        }
+
+        .task-priority.high {
+            background: rgba(244, 63, 94, 0.12);
+            color: #f43f5e;
+        }
+
+        .task-priority.medium {
+            background: rgba(245, 158, 11, 0.12);
+            color: #f59e0b;
+        }
+
+        .task-priority.low {
+            background: rgba(16, 185, 129, 0.12);
+            color: #10b981;
+        }
+
+        /* Booking Summary */
+        .booking-card {
+            background: var(--bg-surface);
+            border-radius: 10px;
+            padding: 14px 16px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            border: 1px solid var(--border-color);
+            transition: background 0.2s;
+        }
+
+        .booking-card:last-child {
+            margin-bottom: 0;
+        }
+
+        .booking-card:hover {
+            background: var(--bg-body);
+        }
+
+        .booking-date-box {
+            min-width: 48px;
+            text-align: center;
+            background: var(--bg-card);
+            border-radius: 10px;
+            padding: 6px 10px;
+            border: 1px solid var(--border-color);
+        }
+
+        .booking-date-box .bday {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: var(--primary-color);
+            line-height: 1;
+        }
+
+        .booking-date-box .bmonth {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            color: var(--text-light);
+            letter-spacing: 0.06em;
+        }
+
+        .booking-status {
+            margin-left: auto;
+            font-size: 0.72rem;
+            font-weight: 600;
+            padding: 3px 10px;
+            border-radius: 99px;
+        }
+
+        .booking-status.confirmed {
+            background: rgba(16, 185, 129, 0.12);
+            color: #10b981;
+        }
+
+        .booking-status.pending {
+            background: rgba(245, 158, 11, 0.12);
+            color: #f59e0b;
+        }
+
+        .booking-status.cancelled {
+            background: rgba(244, 63, 94, 0.12);
+            color: #f43f5e;
+        }
+
+        /* Section Headers */
+        .section-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 18px;
+        }
+
+        .section-heading h3 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin-bottom: 0;
+        }
+
+        .section-heading a {
+            font-size: 0.8rem;
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        .section-heading a:hover {
+            text-decoration: underline;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        .user-stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 28px;
+        }
+
+        .user-main-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 20px;
+            margin-bottom: 28px;
+        }
+
+        .user-bottom-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 28px;
+        }
+
+        @media (max-width: 1024px) {
+            .user-stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .user-main-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .user-bottom-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .quick-actions-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .user-welcome-banner {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 22px 20px;
+            }
+
+            .welcome-avatar {
+                display: none;
+            }
+
+            .welcome-text h2 {
+                font-size: 1.35rem;
+            }
+
+            .user-stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
+
+            .quick-actions-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .user-main-grid,
+            .user-bottom-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .user-stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .quick-actions-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .user-welcome-banner {
+                padding: 18px 16px;
+            }
+
+            .welcome-text h2 {
+                font-size: 1.15rem;
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -20,18 +498,28 @@
             </a>
 
             <nav class="sidebar-menu">
-                <a href="#" class="sidebar-link active" data-section="dashboard"><i class="fas fa-home"></i>
-                    Dashboard</a>
-                <a href="#" class="sidebar-link" data-section="tasks"><i class="fas fa-check-circle"></i> My Tasks</a>
-                <a href="#" class="sidebar-link" data-section="projects"><i class="fas fa-folder-open"></i>
-                    My Projects</a>
-                <a href="#" class="sidebar-link" data-section="messages"><i class="fas fa-comment-alt"></i> Messages
-                    <span class="badge"
-                        style="background: var(--secondary-color); font-size: 0.7rem; padding: 2px 6px; border-radius: 10px; color: white; margin-left: 5px;">3</span></a>
-                <a href="#" class="sidebar-link" data-section="calendar"><i class="fas fa-calendar-day"></i>
-                    Calendar</a>
-                <a href="#" class="sidebar-link" data-section="settings"><i class="fas fa-user-cog"></i> Profile
-                    Settings</a>
+                <a href="#" class="sidebar-link active" data-section="dashboard">
+                    <i class="fas fa-home"></i> Dashboard
+                </a>
+                <a href="#" class="sidebar-link" data-section="tasks">
+                    <i class="fas fa-check-circle"></i> My Tasks
+                </a>
+                <a href="#" class="sidebar-link" data-section="projects">
+                    <i class="fas fa-folder-open"></i> My Projects
+                </a>
+                <a href="#" class="sidebar-link" data-section="bookings">
+                    <i class="fas fa-calendar-check"></i> Bookings
+                    <span
+                        style="background: var(--secondary-color); font-size: 0.7rem; padding: 2px 6px; border-radius: 10px; color: white; margin-left: auto;">2</span>
+                </a>
+                <a href="#" class="sidebar-link" data-section="messages">
+                    <i class="fas fa-comment-alt"></i> Messages
+                    <span
+                        style="background: var(--secondary-color); font-size: 0.7rem; padding: 2px 6px; border-radius: 10px; color: white; margin-left: auto;">3</span>
+                </a>
+                <a href="#" class="sidebar-link" data-section="settings">
+                    <i class="fas fa-user-cog"></i> Profile Settings
+                </a>
             </nav>
 
             <div style="margin-top: auto;">
@@ -41,8 +529,9 @@
 
         <!-- Main Content -->
         <main class="main-content">
+            <!-- Top Header -->
             <div class="dashboard-header-container"
-                style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+                style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 28px;">
                 <div style="display: flex; align-items: center; gap: 15px;">
                     <button class="dashboard-sidebar-btn mobile-only btn-primary"
                         style="padding: 0; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 8px;">
@@ -55,183 +544,673 @@
                         <h2 id="section-title" style="margin-bottom: 0; font-size: 1.5rem;">My Dashboard</h2>
                     </div>
                 </div>
-                <div style="display: flex; align-items: center; gap: 20px;">
+                <div style="display: flex; align-items: center; gap: 16px;">
+                    <!-- Notification Bell -->
+                    <div style="position: relative; cursor: pointer;">
+                        <button
+                            style="width: 40px; height: 40px; border-radius: 50%; background: var(--bg-card); border: 1px solid var(--border-color); display: flex; align-items: center; justify-content: center; color: var(--text-muted); font-size: 1rem; transition: all 0.2s;">
+                            <i class="fas fa-bell"></i>
+                        </button>
+                        <span
+                            style="position: absolute; top: -2px; right: -2px; width: 14px; height: 14px; background: #f43f5e; border-radius: 50%; font-size: 0.6rem; color: white; display: flex; align-items: center; justify-content: center; font-weight: 700;">4</span>
+                    </div>
                     <div class="dropdown">
-                        <button class="btn btn-secondary dashboard-btn">
-                            <i class="fas fa-user-circle"></i> User
+                        <button class="btn btn-secondary dashboard-btn" style="gap: 8px; padding: 0 12px;">
+                            <div
+                                style="width: 28px; height: 28px; border-radius: 50%; background: linear-gradient(135deg, #6366f1, #8b5cf6); display: flex; align-items: center; justify-content: center; font-size: 0.68rem; color: white; font-weight: 700; flex-shrink: 0;">
+                                JD</div>
+                            <span style="font-size: 0.9rem;">Jane Doe</span>
                         </button>
                         <div class="dropdown-menu">
-                            <a href="user-dashboard.html" class="dropdown-item">User Dashboard</a>
-                            <a href="admin-dashboard.html" class="dropdown-item">Admin Dashboard</a>
+                            <div
+                                style="padding: 10px 16px 6px; border-bottom: 1px solid var(--border-color); margin-bottom: 6px;">
+                                <div style="font-weight: 700; font-size: 0.88rem; color: var(--text-main);">Jane Doe
+                                </div>
+                                <div style="font-size: 0.75rem; color: var(--text-muted);">Standard User</div>
+                            </div>
+                            <a href="#" class="dropdown-item"
+                                onclick="document.querySelector('[data-section=settings]').click(); return false;"><i
+                                    class="fas fa-user-circle" style="width: 16px; color: var(--primary-color);"></i> My
+                                Profile</a>
+                            <a href="#" class="dropdown-item"
+                                onclick="document.querySelector('[data-section=settings]').click(); return false;"><i
+                                    class="fas fa-cog" style="width: 16px; color: var(--text-muted);"></i> Account
+                                Settings</a>
+                            <div style="border-top: 1px solid var(--border-color); margin: 6px 0;"></div>
+                            <a href="index.html" class="dropdown-item" style="color: #f43f5e;"><i
+                                    class="fas fa-sign-out-alt" style="width: 16px; color: #f43f5e;"></i> Logout</a>
                         </div>
                     </div>
                     <button class="theme-toggle"><i class="fas fa-moon"></i></button>
                 </div>
             </div>
 
-            <!-- Dashboard Section -->
+            <!-- ==================== DASHBOARD SECTION ==================== -->
             <div id="dashboard-section" class="dashboard-section active">
-                <!-- Stats -->
-                <div class="grid gap-2 dashboard-stats" style="margin-bottom: 30px;">
-                    <div class="kanban-col reveal-up reveal-delay-1">
-                        <h2>12</h2>
-                        <p>Pending Tasks</p>
+
+                <!-- Personalized Welcome Banner -->
+                <div class="user-welcome-banner reveal-up">
+                    <div class="welcome-text">
+                        <h2>👋 Welcome back, Jane!</h2>
+                        <p>You have <strong style="color: rgba(255,255,255,1);">5 tasks due this week</strong> and
+                            <strong style="color: rgba(255,255,255,1);">2 upcoming bookings</strong>. Let's get things
+                            done!
+                        </p>
+                        <div style="margin-top: 16px; display: flex; gap: 10px; flex-wrap: wrap;">
+                            <button class="btn"
+                                style="background: white; color: #6366f1; height: 36px; font-size: 0.85rem; font-weight: 700;">
+                                <i class="fas fa-plus" style="margin-right: 6px;"></i>New Task
+                            </button>
+                            <button class="btn"
+                                style="background: rgba(255,255,255,0.15); color: white; border: 1.5px solid rgba(255,255,255,0.4); height: 36px; font-size: 0.85rem;">
+                                <i class="fas fa-calendar" style="margin-right: 6px;"></i>View Schedule
+                            </button>
+                        </div>
                     </div>
-                    <div class="kanban-col reveal-up reveal-delay-2">
-                        <h2>5</h2>
-                        <p>In Progress</p>
+                    <div class="welcome-avatar">JD</div>
+                </div>
+
+                <!-- Status / Progress Cards -->
+                <div class="user-stats-grid">
+                    <div class="user-stat-card reveal-up reveal-delay-1">
+                        <div class="stat-icon-ring indigo"><i class="fas fa-tasks"></i></div>
+                        <p class="stat-card-label">Pending Tasks</p>
+                        <h2 class="stat-card-number">12</h2>
+                        <div class="progress-bar-wrap">
+                            <div class="progress-bar-fill"
+                                style="width: 48%; background: linear-gradient(90deg, #6366f1, #8b5cf6);"></div>
+                        </div>
+                        <p style="font-size: 0.75rem; color: var(--text-light); margin: 0;">48% of monthly goal</p>
                     </div>
-                    <div class="kanban-col reveal-up reveal-delay-3">
-                        <h2>24</h2>
-                        <p>Completed</p>
+                    <div class="user-stat-card reveal-up reveal-delay-2">
+                        <div class="stat-icon-ring amber"><i class="fas fa-spinner"></i></div>
+                        <p class="stat-card-label">In Progress</p>
+                        <h2 class="stat-card-number">5</h2>
+                        <div class="progress-bar-wrap">
+                            <div class="progress-bar-fill"
+                                style="width: 62%; background: linear-gradient(90deg, #f59e0b, #fbbf24);"></div>
+                        </div>
+                        <p style="font-size: 0.75rem; color: var(--text-light); margin: 0;">62% active rate</p>
+                    </div>
+                    <div class="user-stat-card reveal-up reveal-delay-3">
+                        <div class="stat-icon-ring emerald"><i class="fas fa-check-double"></i></div>
+                        <p class="stat-card-label">Completed</p>
+                        <h2 class="stat-card-number">24</h2>
+                        <div class="progress-bar-wrap">
+                            <div class="progress-bar-fill"
+                                style="width: 80%; background: linear-gradient(90deg, #10b981, #34d399);"></div>
+                        </div>
+                        <p style="font-size: 0.75rem; color: var(--text-light); margin: 0;">80% completion rate</p>
+                    </div>
+                    <div class="user-stat-card reveal-up reveal-delay-4">
+                        <div class="stat-icon-ring rose"><i class="fas fa-calendar-check"></i></div>
+                        <p class="stat-card-label">Bookings</p>
+                        <h2 class="stat-card-number">2</h2>
+                        <div class="progress-bar-wrap">
+                            <div class="progress-bar-fill"
+                                style="width: 30%; background: linear-gradient(90deg, #f43f5e, #fb7185);"></div>
+                        </div>
+                        <p style="font-size: 0.75rem; color: var(--text-light); margin: 0;">This week upcoming</p>
                     </div>
                 </div>
 
-                <!-- Personal Progress & Activity -->
-                <div class="grid gap-2" style="grid-template-columns: 2fr 1fr; margin-bottom: 30px;">
-                    <!-- Task Board -->
+                <!-- Quick Actions -->
+                <div class="kanban-col reveal-up" style="margin-bottom: 28px; padding: 20px 20px 14px;">
+                    <div class="section-heading">
+                        <h3><i class="fas fa-bolt" style="color: #f59e0b; margin-right: 8px;"></i>Quick Actions</h3>
+                    </div>
+                    <div class="quick-actions-grid">
+                        <button class="quick-action-btn">
+                            <div class="quick-action-icon" style="background: rgba(99, 102, 241, 0.1);">
+                                <i class="fas fa-plus-circle" style="color: #6366f1;"></i>
+                            </div>
+                            Add New Task
+                        </button>
+                        <button class="quick-action-btn">
+                            <div class="quick-action-icon" style="background: rgba(16, 185, 129, 0.1);">
+                                <i class="fas fa-calendar-plus" style="color: #10b981;"></i>
+                            </div>
+                            Book a Slot
+                        </button>
+                        <button class="quick-action-btn">
+                            <div class="quick-action-icon" style="background: rgba(245, 158, 11, 0.1);">
+                                <i class="fas fa-comment-dots" style="color: #f59e0b;"></i>
+                            </div>
+                            Send Message
+                        </button>
+                        <button class="quick-action-btn">
+                            <div class="quick-action-icon" style="background: rgba(244, 63, 94, 0.1);">
+                                <i class="fas fa-file-upload" style="color: #f43f5e;"></i>
+                            </div>
+                            Upload File
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Main Grid: Task Overview + Activity Feed -->
+                <div class="user-main-grid">
+                    <!-- Task Overview -->
                     <div class="kanban-col reveal-left">
-                        <div
-                            style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-                            <h3 style="margin-bottom: 0;">Current Tasks</h3>
-                            <button class="btn btn-primary" style="height: 36px; font-size: 0.9rem;">+ New Task</button>
+                        <div class="section-heading">
+                            <h3><i class="fas fa-list-check"
+                                    style="color: var(--primary-color); margin-right: 8px;"></i>Task Overview</h3>
+                            <a href="#">View All <i class="fas fa-arrow-right" style="font-size: 0.7rem;"></i></a>
                         </div>
-                        <div class="kanban-board" style="grid-template-columns: repeat(2, 1fr);">
-                            <!-- To Do -->
-                            <div class="kanban-col" style="background: var(--bg-surface); padding: 15px;">
-                                <div class="kanban-header">
-                                    <span class="col-title" style="color: var(--primary-color);">To Do</span>
+
+                        <!-- Progress Summary Bar -->
+                        <div
+                            style="background: var(--bg-surface); border-radius: 12px; padding: 14px 16px; margin-bottom: 18px; display: flex; align-items: center; gap: 20px; flex-wrap: wrap;">
+                            <div style="text-align: center;">
+                                <div style="font-size: 1.4rem; font-weight: 800; color: #10b981;">80%</div>
+                                <div
+                                    style="font-size: 0.72rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.04em;">
+                                    Overall</div>
+                            </div>
+                            <div style="flex: 1; min-width: 100px;">
+                                <div
+                                    style="display: flex; justify-content: space-between; margin-bottom: 4px; font-size: 0.8rem; color: var(--text-muted);">
+                                    <span>Sprint Progress</span><span>24/30</span>
                                 </div>
-                                <div class="kanban-card" draggable="true" style="min-height: 100px;">
-                                    <span class="card-tag">Bug</span>
-                                    <h4 style="font-size: 1rem;">Fix Navigation on Mobile</h4>
-                                    <div style="margin-top: 10px; font-size: 0.75rem; color: var(--text-light);">
-                                        <i class="fas fa-clock"></i> Due Tomorrow
-                                    </div>
+                                <div class="progress-bar-wrap">
+                                    <div class="progress-bar-fill"
+                                        style="width: 80%; background: linear-gradient(90deg, #10b981, #34d399);"></div>
                                 </div>
                             </div>
-                            <!-- In Progress -->
-                            <div class="kanban-col" style="background: var(--bg-surface); padding: 15px;">
-                                <div class="kanban-header">
-                                    <span class="col-title" style="color: #b45309;">In Progress</span>
+                        </div>
+
+                        <!-- Task List -->
+                        <div>
+                            <div class="task-item">
+                                <div class="task-check done"><i class="fas fa-check"></i></div>
+                                <div style="flex: 1; min-width: 0;">
+                                    <div
+                                        style="font-size: 0.88rem; color: var(--text-muted); text-decoration: line-through;">
+                                        Fix navigation bug on mobile</div>
+                                    <div style="font-size: 0.75rem; color: var(--text-light);">Project Alpha</div>
                                 </div>
-                                <div class="kanban-card" draggable="true" style="min-height: 100px;">
-                                    <span class="card-tag">Feature</span>
-                                    <h4 style="font-size: 1rem;">Implement Dark Mode</h4>
+                                <span class="task-priority high">High</span>
+                            </div>
+                            <div class="task-item">
+                                <div class="task-check in-progress"></div>
+                                <div style="flex: 1; min-width: 0;">
+                                    <div style="font-size: 0.88rem; color: var(--text-main); font-weight: 500;">
+                                        Implement dark mode toggle</div>
+                                    <div style="font-size: 0.75rem; color: var(--text-light);">UI Redesign · Due
+                                        Tomorrow</div>
+                                </div>
+                                <span class="task-priority medium">Medium</span>
+                            </div>
+                            <div class="task-item">
+                                <div class="task-check"></div>
+                                <div style="flex: 1; min-width: 0;">
+                                    <div style="font-size: 0.88rem; color: var(--text-main); font-weight: 500;">Write
+                                        API documentation</div>
+                                    <div style="font-size: 0.75rem; color: var(--text-light);">Backend · Due Feb 25
+                                    </div>
+                                </div>
+                                <span class="task-priority low">Low</span>
+                            </div>
+                            <div class="task-item">
+                                <div class="task-check"></div>
+                                <div style="flex: 1; min-width: 0;">
+                                    <div style="font-size: 0.88rem; color: var(--text-main); font-weight: 500;">Conduct
+                                        user testing session</div>
+                                    <div style="font-size: 0.75rem; color: var(--text-light);">Research · Due Mar 1
+                                    </div>
+                                </div>
+                                <span class="task-priority high">High</span>
+                            </div>
+                            <div class="task-item">
+                                <div class="task-check"></div>
+                                <div style="flex: 1; min-width: 0;">
+                                    <div style="font-size: 0.88rem; color: var(--text-main); font-weight: 500;">Update
+                                        project timeline</div>
+                                    <div style="font-size: 0.75rem; color: var(--text-light);">Planning · Due Mar 3
+                                    </div>
+                                </div>
+                                <span class="task-priority medium">Medium</span>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary"
+                            style="margin-top: 18px; width: 100%; height: 40px; font-size: 0.9rem;">
+                            <i class="fas fa-plus" style="margin-right: 6px;"></i>Add New Task
+                        </button>
+                    </div>
+
+                    <!-- Recent Activity Feed -->
+                    <div class="kanban-col reveal-right">
+                        <div class="section-heading">
+                            <h3><i class="fas fa-history" style="color: #8b5cf6; margin-right: 8px;"></i>Recent Activity
+                            </h3>
+                        </div>
+                        <div>
+                            <div class="activity-item">
+                                <div class="activity-dot" style="background: rgba(16, 185, 129, 0.12); color: #10b981;">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                                <div class="activity-content">
+                                    <strong>Task completed</strong>
+                                    <span>You completed "Fix Navigation Bug" · 2h ago</span>
+                                </div>
+                            </div>
+                            <div class="activity-item">
+                                <div class="activity-dot" style="background: rgba(99, 102, 241, 0.12); color: #6366f1;">
+                                    <i class="fas fa-comment"></i>
+                                </div>
+                                <div class="activity-content">
+                                    <strong>New message</strong>
+                                    <span>Alex Johnson replied to your thread · 4h ago</span>
+                                </div>
+                            </div>
+                            <div class="activity-item">
+                                <div class="activity-dot" style="background: rgba(245, 158, 11, 0.12); color: #f59e0b;">
+                                    <i class="fas fa-calendar"></i>
+                                </div>
+                                <div class="activity-content">
+                                    <strong>Booking confirmed</strong>
+                                    <span>Meeting on Feb 24 at 10:00 AM · 6h ago</span>
+                                </div>
+                            </div>
+                            <div class="activity-item">
+                                <div class="activity-dot" style="background: rgba(244, 63, 94, 0.12); color: #f43f5e;">
+                                    <i class="fas fa-exclamation"></i>
+                                </div>
+                                <div class="activity-content">
+                                    <strong>Deadline reminder</strong>
+                                    <span>"API Docs" is due in 4 days · 8h ago</span>
+                                </div>
+                            </div>
+                            <div class="activity-item">
+                                <div class="activity-dot" style="background: rgba(99, 102, 241, 0.12); color: #6366f1;">
+                                    <i class="fas fa-folder-plus"></i>
+                                </div>
+                                <div class="activity-content">
+                                    <strong>Joined project</strong>
+                                    <span>Added to "UI Redesign" project · Yesterday</span>
                                 </div>
                             </div>
                         </div>
                     </div>
+                </div>
 
-                    <!-- Side Widgets -->
-                    <div class="reveal-right">
-                        <div class="kanban-col" style="margin-bottom: 20px;">
-                            <h4 style="margin-bottom: 15px;"><i class="fas fa-bullhorn"
-                                    style="color: var(--secondary-color);"></i> Announcements</h4>
-                            <div
-                                style="padding: 10px; border-left: 3px solid var(--secondary-color); background: var(--bg-surface); border-radius: 4px; font-size: 0.85rem; margin-bottom: 10px;">
-                                <strong>System Update:</strong> New task dependencies feature is live!
+                <!-- Bottom Grid: Booking Summary + Announcements -->
+                <div class="user-bottom-grid">
+                    <!-- Booking Summary -->
+                    <div class="kanban-col reveal-up">
+                        <div class="section-heading">
+                            <h3><i class="fas fa-calendar-check" style="color: #10b981; margin-right: 8px;"></i>Booking
+                                Summary</h3>
+                            <a href="#">Manage <i class="fas fa-arrow-right" style="font-size: 0.7rem;"></i></a>
+                        </div>
+                        <div class="booking-card">
+                            <div class="booking-date-box">
+                                <div class="bday">24</div>
+                                <div class="bmonth">Feb</div>
                             </div>
-                            <div
-                                style="padding: 10px; border-left: 3px solid var(--primary-color); background: var(--bg-surface); border-radius: 4px; font-size: 0.85rem;">
-                                <strong>All-Hands Meeting:</strong> Tomorrow at 10:00 AM.
+                            <div style="flex: 1;">
+                                <div style="font-size: 0.88rem; font-weight: 600; color: var(--text-main);">Client
+                                    Review Session</div>
+                                <div style="font-size: 0.75rem; color: var(--text-muted);">10:00 AM · Google Meet</div>
+                            </div>
+                            <span class="booking-status confirmed">Confirmed</span>
+                        </div>
+                        <div class="booking-card">
+                            <div class="booking-date-box">
+                                <div class="bday">27</div>
+                                <div class="bmonth">Feb</div>
+                            </div>
+                            <div style="flex: 1;">
+                                <div style="font-size: 0.88rem; font-weight: 600; color: var(--text-main);">Design
+                                    Sprint Kickoff</div>
+                                <div style="font-size: 0.75rem; color: var(--text-muted);">2:00 PM · Office — Room B
+                                </div>
+                            </div>
+                            <span class="booking-status pending">Pending</span>
+                        </div>
+                        <div class="booking-card">
+                            <div class="booking-date-box">
+                                <div class="bday">03</div>
+                                <div class="bmonth">Mar</div>
+                            </div>
+                            <div style="flex: 1;">
+                                <div style="font-size: 0.88rem; font-weight: 600; color: var(--text-main);">User Testing
+                                    Session</div>
+                                <div style="font-size: 0.75rem; color: var(--text-muted);">11:00 AM · Zoom</div>
+                            </div>
+                            <span class="booking-status confirmed">Confirmed</span>
+                        </div>
+                    </div>
+
+                    <!-- Team & Announcements -->
+                    <div style="display: flex; flex-direction: column; gap: 20px;">
+                        <!-- Announcements -->
+                        <div class="kanban-col reveal-up">
+                            <div class="section-heading">
+                                <h3><i class="fas fa-bullhorn"
+                                        style="color: var(--secondary-color); margin-right: 8px;"></i>Announcements</h3>
+                            </div>
+                            <div style="display: flex; flex-direction: column; gap: 10px;">
+                                <div
+                                    style="padding: 12px; border-left: 3px solid var(--secondary-color); background: var(--bg-surface); border-radius: 6px; font-size: 0.84rem;">
+                                    <strong>System Update:</strong> New task dependency feature is now live!
+                                    <div style="font-size: 0.72rem; color: var(--text-light); margin-top: 3px;">Today,
+                                        9:00 AM</div>
+                                </div>
+                                <div
+                                    style="padding: 12px; border-left: 3px solid var(--primary-color); background: var(--bg-surface); border-radius: 6px; font-size: 0.84rem;">
+                                    <strong>All-Hands Meeting:</strong> Tomorrow at 10:00 AM in the main hall.
+                                    <div style="font-size: 0.72rem; color: var(--text-light); margin-top: 3px;">
+                                        Yesterday, 3:00 PM</div>
+                                </div>
                             </div>
                         </div>
-
-                        <div class="kanban-col">
-                            <h4 style="margin-bottom: 15px;"><i class="fas fa-users"
-                                    style="color: var(--primary-color);"></i> Team Members</h4>
+                        <!-- Team Members -->
+                        <div class="kanban-col reveal-up">
+                            <div class="section-heading">
+                                <h3><i class="fas fa-users"
+                                        style="color: var(--primary-color); margin-right: 8px;"></i>My Team</h3>
+                            </div>
                             <div style="display: flex; flex-direction: column; gap: 10px;">
                                 <div style="display: flex; align-items: center; gap: 10px;">
                                     <div
-                                        style="width: 32px; height: 32px; border-radius: 50%; background: #6366f1; color: white; display: flex; align-items: center; justify-content: center; font-size: 0.8rem;">
+                                        style="width: 34px; height: 34px; border-radius: 50%; background: linear-gradient(135deg, #6366f1, #8b5cf6); color: white; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700; flex-shrink: 0;">
                                         AJ</div>
-                                    <span style="font-size: 0.9rem;">Alex Johnson (Lead)</span>
+                                    <div>
+                                        <div style="font-size: 0.88rem; font-weight: 600;">Alex Johnson</div>
+                                        <div style="font-size: 0.74rem; color: var(--text-muted);">Team Lead</div>
+                                    </div>
+                                    <div style="margin-left: auto; width: 8px; height: 8px; background: #10b981; border-radius: 50;"
+                                        title="Online"></div>
                                 </div>
                                 <div style="display: flex; align-items: center; gap: 10px;">
                                     <div
-                                        style="width: 32px; height: 32px; border-radius: 50%; background: #ec4899; color: white; display: flex; align-items: center; justify-content: center; font-size: 0.8rem;">
+                                        style="width: 34px; height: 34px; border-radius: 50%; background: linear-gradient(135deg, #ec4899, #f43f5e); color: white; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700; flex-shrink: 0;">
                                         SL</div>
-                                    <span style="font-size: 0.9rem;">Sarah Lee</span>
+                                    <div>
+                                        <div style="font-size: 0.88rem; font-weight: 600;">Sarah Lee</div>
+                                        <div style="font-size: 0.74rem; color: var(--text-muted);">Designer</div>
+                                    </div>
+                                    <div style="margin-left: auto; width: 8px; height: 8px; background: #10b981; border-radius: 50%;"
+                                        title="Online"></div>
                                 </div>
+                                <div style="display: flex; align-items: center; gap: 10px;">
+                                    <div
+                                        style="width: 34px; height: 34px; border-radius: 50%; background: linear-gradient(135deg, #f59e0b, #fbbf24); color: white; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700; flex-shrink: 0;">
+                                        JD</div>
+                                    <div>
+                                        <div style="font-size: 0.88rem; font-weight: 600;">John Doe</div>
+                                        <div style="font-size: 0.74rem; color: var(--text-muted);">Developer</div>
+                                    </div>
+                                    <div style="margin-left: auto; width: 8px; height: 8px; background: var(--border-color); border-radius: 50%;"
+                                        title="Offline"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div><!-- end dashboard-section -->
+
+            <!-- ==================== TASKS SECTION ==================== -->
+            <div id="tasks-section" class="dashboard-section">
+                <div class="kanban-col">
+                    <h3 style="margin-bottom: 20px;"><i class="fas fa-check-circle"
+                            style="color: var(--primary-color); margin-right: 8px;"></i>My Tasks</h3>
+
+                    <div style="display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap;">
+                        <button class="btn btn-primary" style="height: 36px; font-size: 0.85rem;"><i class="fas fa-plus"
+                                style="margin-right: 6px;"></i>New Task</button>
+                        <button class="btn btn-secondary" style="height: 36px; font-size: 0.85rem;"><i
+                                class="fas fa-filter" style="margin-right: 6px;"></i>Filter</button>
+                    </div>
+
+                    <div class="kanban-board" style="grid-template-columns: repeat(3, 1fr);">
+                        <div class="kanban-col" style="background: var(--bg-surface); padding: 15px;">
+                            <div class="kanban-header">
+                                <span class="col-title" style="color: var(--primary-color);">To Do</span>
+                                <span
+                                    style="font-size: 0.75rem; background: rgba(99,102,241,0.1); color: var(--primary-color); padding: 2px 8px; border-radius: 99px;">3</span>
+                            </div>
+                            <div class="kanban-card" draggable="true">
+                                <span class="card-tag">Bug</span>
+                                <h4 style="font-size: 0.95rem;">Fix Navigation on Mobile</h4>
+                                <div style="margin-top: 10px; font-size: 0.75rem; color: var(--text-light);"><i
+                                        class="fas fa-clock"></i> Due Tomorrow</div>
+                            </div>
+                            <div class="kanban-card" draggable="true">
+                                <span class="card-tag">Research</span>
+                                <h4 style="font-size: 0.95rem;">Conduct User Survey</h4>
+                                <div style="margin-top: 10px; font-size: 0.75rem; color: var(--text-light);"><i
+                                        class="fas fa-clock"></i> Due Mar 1</div>
+                            </div>
+                        </div>
+                        <div class="kanban-col" style="background: var(--bg-surface); padding: 15px;">
+                            <div class="kanban-header">
+                                <span class="col-title" style="color: #b45309;">In Progress</span>
+                                <span
+                                    style="font-size: 0.75rem; background: rgba(245,158,11,0.1); color: #f59e0b; padding: 2px 8px; border-radius: 99px;">2</span>
+                            </div>
+                            <div class="kanban-card" draggable="true">
+                                <span class="card-tag">Feature</span>
+                                <h4 style="font-size: 0.95rem;">Implement Dark Mode</h4>
+                                <div style="margin-top: 10px; font-size: 0.75rem; color: var(--text-light);"><i
+                                        class="fas fa-clock"></i> Due Feb 28</div>
+                            </div>
+                        </div>
+                        <div class="kanban-col" style="background: var(--bg-surface); padding: 15px;">
+                            <div class="kanban-header">
+                                <span class="col-title" style="color: #059669;">Completed</span>
+                                <span
+                                    style="font-size: 0.75rem; background: rgba(16,185,129,0.1); color: #10b981; padding: 2px 8px; border-radius: 99px;">5</span>
+                            </div>
+                            <div class="kanban-card" draggable="true" style="opacity: 0.65;">
+                                <span class="card-tag">Bug</span>
+                                <h4 style="font-size: 0.95rem; text-decoration: line-through;">Login page alignment fix
+                                </h4>
+                                <div style="margin-top: 10px; font-size: 0.75rem; color: #10b981;"><i
+                                        class="fas fa-check"></i> Done</div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Placeholder sections for other menu items -->
-            <div id="tasks-section" class="dashboard-section">
-                <div class="kanban-col">
-                    <p>No tasks found for today. Enjoy your day!</p>
-                </div>
-            </div>
+            <!-- ==================== PROJECTS SECTION ==================== -->
             <div id="projects-section" class="dashboard-section">
-                <div class="grid gap-2" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));">
+                <div class="grid gap-2" style="grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));">
                     <div class="kanban-col">
-                        <h4>Project Alpha</h4>
-                        <p style="font-size: 0.9rem; color: var(--text-muted); margin-top: 10px;">Ongoing sprint - 85%
-                            complete</p>
+                        <div
+                            style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 14px;">
+                            <h4 style="margin-bottom: 0;">Project Alpha</h4>
+                            <span
+                                style="font-size: 0.72rem; padding: 2px 10px; border-radius: 99px; background: rgba(16,185,129,0.12); color: #10b981; font-weight: 600;">Active</span>
+                        </div>
+                        <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 14px;">Ongoing sprint —
+                            mobile app redesign with new navigation patterns.</p>
+                        <div class="progress-bar-wrap" style="margin-bottom: 6px;">
+                            <div class="progress-bar-fill"
+                                style="width: 85%; background: linear-gradient(90deg, #10b981, #34d399);"></div>
+                        </div>
+                        <div
+                            style="display: flex; justify-content: space-between; font-size: 0.78rem; color: var(--text-muted);">
+                            <span>85% complete</span><span>Due Mar 15</span>
+                        </div>
+                    </div>
+                    <div class="kanban-col">
+                        <div
+                            style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 14px;">
+                            <h4 style="margin-bottom: 0;">UI Redesign</h4>
+                            <span
+                                style="font-size: 0.72rem; padding: 2px 10px; border-radius: 99px; background: rgba(245,158,11,0.12); color: #f59e0b; font-weight: 600;">In
+                                Progress</span>
+                        </div>
+                        <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 14px;">Full dashboard and
+                            public page visual overhaul project.</p>
+                        <div class="progress-bar-wrap" style="margin-bottom: 6px;">
+                            <div class="progress-bar-fill"
+                                style="width: 55%; background: linear-gradient(90deg, #f59e0b, #fbbf24);"></div>
+                        </div>
+                        <div
+                            style="display: flex; justify-content: space-between; font-size: 0.78rem; color: var(--text-muted);">
+                            <span>55% complete</span><span>Due Apr 1</span>
+                        </div>
+                    </div>
+                    <div class="kanban-col">
+                        <div
+                            style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 14px;">
+                            <h4 style="margin-bottom: 0;">Backend API</h4>
+                            <span
+                                style="font-size: 0.72rem; padding: 2px 10px; border-radius: 99px; background: rgba(99,102,241,0.12); color: #6366f1; font-weight: 600;">Planning</span>
+                        </div>
+                        <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 14px;">REST API endpoints
+                            and documentation for v2.0 release.</p>
+                        <div class="progress-bar-wrap" style="margin-bottom: 6px;">
+                            <div class="progress-bar-fill"
+                                style="width: 20%; background: linear-gradient(90deg, #6366f1, #8b5cf6);"></div>
+                        </div>
+                        <div
+                            style="display: flex; justify-content: space-between; font-size: 0.78rem; color: var(--text-muted);">
+                            <span>20% complete</span><span>Due May 30</span>
+                        </div>
                     </div>
                 </div>
             </div>
+
+            <!-- ==================== BOOKINGS SECTION ==================== -->
+            <div id="bookings-section" class="dashboard-section">
+                <div class="kanban-col">
+                    <div
+                        style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 10px;">
+                        <h3 style="margin-bottom: 0;"><i class="fas fa-calendar-check"
+                                style="color: #10b981; margin-right: 8px;"></i>My Bookings</h3>
+                        <button class="btn btn-primary" style="height: 36px; font-size: 0.85rem;"><i class="fas fa-plus"
+                                style="margin-right: 6px;"></i>Book a Slot</button>
+                    </div>
+                    <div class="booking-card">
+                        <div class="booking-date-box">
+                            <div class="bday">24</div>
+                            <div class="bmonth">Feb</div>
+                        </div>
+                        <div style="flex: 1;">
+                            <div style="font-size: 0.9rem; font-weight: 600; color: var(--text-main);">Client Review
+                                Session</div>
+                            <div style="font-size: 0.78rem; color: var(--text-muted);">10:00 AM – 11:00 AM · Google Meet
+                            </div>
+                        </div>
+                        <span class="booking-status confirmed">Confirmed</span>
+                    </div>
+                    <div class="booking-card">
+                        <div class="booking-date-box">
+                            <div class="bday">27</div>
+                            <div class="bmonth">Feb</div>
+                        </div>
+                        <div style="flex: 1;">
+                            <div style="font-size: 0.9rem; font-weight: 600; color: var(--text-main);">Design Sprint
+                                Kickoff</div>
+                            <div style="font-size: 0.78rem; color: var(--text-muted);">2:00 PM – 4:00 PM · Office — Room
+                                B</div>
+                        </div>
+                        <span class="booking-status pending">Pending</span>
+                    </div>
+                    <div class="booking-card">
+                        <div class="booking-date-box">
+                            <div class="bday">03</div>
+                            <div class="bmonth">Mar</div>
+                        </div>
+                        <div style="flex: 1;">
+                            <div style="font-size: 0.9rem; font-weight: 600; color: var(--text-main);">User Testing
+                                Session</div>
+                            <div style="font-size: 0.78rem; color: var(--text-muted);">11:00 AM – 12:30 PM · Zoom</div>
+                        </div>
+                        <span class="booking-status confirmed">Confirmed</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ==================== MESSAGES SECTION ==================== -->
             <div id="messages-section" class="dashboard-section">
                 <div class="kanban-col">
-                    <h4 style="margin-bottom: 20px;">Recent Conversations</h4>
-                    <div style="display: flex; flex-direction: column; gap: 15px;">
+                    <h3 style="margin-bottom: 20px;"><i class="fas fa-comment-alt"
+                            style="color: var(--primary-color); margin-right: 8px;"></i>Recent Conversations</h3>
+                    <div style="display: flex; flex-direction: column; gap: 12px;">
                         <div
-                            style="padding: 15px; background: var(--bg-surface); border-radius: 8px; border-left: 4px solid var(--primary-color);">
-                            <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                            style="padding: 14px; background: var(--bg-surface); border-radius: 10px; border-left: 4px solid var(--primary-color); cursor: pointer;">
+                            <div
+                                style="display: flex; justify-content: space-between; margin-bottom: 5px; flex-wrap: wrap; gap: 5px;">
                                 <strong>Alex Johnson</strong>
-                                <span style="font-size: 0.8rem; color: var(--text-light);">2h ago</span>
+                                <span style="font-size: 0.78rem; color: var(--text-light);">2h ago</span>
                             </div>
-                            <p style="font-size: 0.9rem; margin-bottom: 0; color: var(--text-muted);">Hey, can you
-                                double check the mobile layout?</p>
+                            <p style="font-size: 0.88rem; margin-bottom: 0; color: var(--text-muted);">Hey, can you
+                                double-check the mobile layout before tomorrow's review?</p>
                         </div>
-                        <div style="padding: 15px; background: var(--bg-surface); border-radius: 8px;">
-                            <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                        <div
+                            style="padding: 14px; background: var(--bg-surface); border-radius: 10px; cursor: pointer;">
+                            <div
+                                style="display: flex; justify-content: space-between; margin-bottom: 5px; flex-wrap: wrap; gap: 5px;">
                                 <strong>Sarah Lee</strong>
-                                <span style="font-size: 0.8rem; color: var(--text-light);">5h ago</span>
+                                <span style="font-size: 0.78rem; color: var(--text-light);">5h ago</span>
                             </div>
-                            <p style="font-size: 0.9rem; margin-bottom: 0; color: var(--text-muted);">Great work on the
-                                database schema setup.</p>
+                            <p style="font-size: 0.88rem; margin-bottom: 0; color: var(--text-muted);">Great work on the
+                                database schema setup! Really impressed.</p>
+                        </div>
+                        <div
+                            style="padding: 14px; background: var(--bg-surface); border-radius: 10px; cursor: pointer;">
+                            <div
+                                style="display: flex; justify-content: space-between; margin-bottom: 5px; flex-wrap: wrap; gap: 5px;">
+                                <strong>Project Bot</strong>
+                                <span style="font-size: 0.78rem; color: var(--text-light);">Yesterday</span>
+                            </div>
+                            <p style="font-size: 0.88rem; margin-bottom: 0; color: var(--text-muted);">Reminder: Your
+                                task "Write API Docs" is due in 4 days.</p>
                         </div>
                     </div>
                 </div>
             </div>
-            <div id="calendar-section" class="dashboard-section">
-                <div class="kanban-col">
-                    <h4 style="margin-bottom: 20px;">Upcoming Events</h4>
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
-                        <div
-                            style="padding: 20px; background: var(--bg-surface); border-radius: 8px; text-align: center;">
-                            <div style="font-size: 1.5rem; font-weight: 700; color: var(--primary-color);">21</div>
-                            <div style="font-size: 0.8rem; text-transform: uppercase;">Aug, 2026</div>
-                            <div style="margin-top: 10px; font-weight: 600;">Daily Standup</div>
-                        </div>
-                        <div
-                            style="padding: 20px; background: var(--bg-surface); border-radius: 8px; text-align: center;">
-                            <div style="font-size: 1.5rem; font-weight: 700; color: var(--secondary-color);">24</div>
-                            <div style="font-size: 0.8rem; text-transform: uppercase;">Aug, 2026</div>
-                            <div style="margin-top: 10px; font-weight: 600;">Client Review</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
+            <!-- ==================== SETTINGS SECTION ==================== -->
             <div id="settings-section" class="dashboard-section">
-                <div class="kanban-col" style="max-width: 500px;">
-                    <div class="form-group">
-                        <label>Profile Visibility</label>
+                <div class="kanban-col" style="max-width: 520px;">
+                    <h3 style="margin-bottom: 24px;"><i class="fas fa-user-cog"
+                            style="color: var(--primary-color); margin-right: 8px;"></i>Profile Settings</h3>
+                    <div
+                        style="display: flex; align-items: center; gap: 16px; margin-bottom: 24px; padding: 16px; background: var(--bg-surface); border-radius: 12px;">
+                        <div
+                            style="width: 56px; height: 56px; border-radius: 50%; background: linear-gradient(135deg, #6366f1, #8b5cf6); color: white; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; font-weight: 700; flex-shrink: 0;">
+                            JD</div>
+                        <div>
+                            <div style="font-weight: 700; font-size: 1rem;">Jane Doe</div>
+                            <div style="font-size: 0.82rem; color: var(--text-muted);">jane@projectflow.io · Standard
+                                User</div>
+                        </div>
+                        <button class="btn btn-secondary"
+                            style="margin-left: auto; height: 34px; font-size: 0.8rem;">Edit Photo</button>
+                    </div>
+                    <div class="form-group" style="margin-bottom: 14px;">
+                        <label style="display: block; margin-bottom: 6px; font-weight: 500; font-size: 0.88rem;">Full
+                            Name</label>
+                        <input type="text" value="Jane Doe"
+                            style="width: 100%; padding: 10px 12px; border-radius: 8px; border: 1px solid var(--border-color); background: var(--bg-input); color: var(--text-main); font-size: 0.9rem;">
+                    </div>
+                    <div class="form-group" style="margin-bottom: 14px;">
+                        <label style="display: block; margin-bottom: 6px; font-weight: 500; font-size: 0.88rem;">Email
+                            Address</label>
+                        <input type="email" value="jane@projectflow.io"
+                            style="width: 100%; padding: 10px 12px; border-radius: 8px; border: 1px solid var(--border-color); background: var(--bg-input); color: var(--text-main); font-size: 0.9rem;">
+                    </div>
+                    <div class="form-group" style="margin-bottom: 20px;">
+                        <label style="display: block; margin-bottom: 6px; font-weight: 500; font-size: 0.88rem;">Profile
+                            Visibility</label>
                         <select
-                            style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid var(--border-color); background: var(--bg-input); color: var(--text-main);">
+                            style="width: 100%; padding: 10px 12px; border-radius: 8px; border: 1px solid var(--border-color); background: var(--bg-input); color: var(--text-main); font-size: 0.9rem;">
                             <option>Public</option>
                             <option>Team Only</option>
                             <option>Private</option>
                         </select>
                     </div>
-                    <button class="btn btn-primary" style="margin-top: 20px;">Save Changes</button>
+                    <button class="btn btn-primary" style="width: 100%;">Save Changes</button>
                 </div>
             </div>
+
         </main>
     </div>
 
