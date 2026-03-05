@@ -803,6 +803,14 @@ footer {
     font-size: 0.9rem;
 }
 
+.mobile-only {
+    display: none !important;
+}
+
+.mobile-only-flex {
+    display: none !important;
+}
+
 /* Back to Top Button */
 .back-to-top {
     position: fixed;
@@ -992,20 +1000,11 @@ footer {
         box-shadow: 0 4px 10px rgba(99, 102, 241, 0.3);
     }
 
-    .dashboard-header-container {
-        padding: 15px;
-        background: var(--bg-card);
-        border-radius: 12px;
-        border: 1px solid var(--border-color);
-        margin-top: 10px;
-    }
-
     .nav-right .btn,
     .nav-right .dropdown {
         display: none;
     }
 
-    /* Ensure theme toggle stays visible and correctly ordered */
     .nav-right .theme-toggle {
         display: block !important;
         order: 2;
@@ -1022,6 +1021,20 @@ footer {
     .dashboard-stats,
     .dashboard-stats-admin {
         grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 991px) {
+    .mobile-only-flex {
+        display: flex !important;
+    }
+
+    .dashboard-header-container {
+        padding: 15px;
+        background: var(--bg-card);
+        border-radius: 12px;
+        border: 1px solid var(--border-color);
+        margin-top: 10px;
     }
 
     /* Dashboard Layout for Tablet/Mobile */
@@ -1059,17 +1072,6 @@ footer {
 
     .dashboard-header-container>div:first-child {
         gap: 10px !important;
-    }
-
-    @media (max-width: 480px) {
-        #section-title {
-            font-size: 1.1rem;
-        }
-
-        .dashboard-header-container,
-        .dashboard-header-container>div:last-child {
-            gap: 10px !important;
-        }
     }
 
     /* Compact Dashboard Elements */
@@ -1317,9 +1319,7 @@ footer {
     }
 }
 
-.mobile-only {
-    display: none !important;
-}
+
 
 /* Utility Animations */
 .fade-in {
